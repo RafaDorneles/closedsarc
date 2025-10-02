@@ -1,6 +1,4 @@
 
-# closed sarc
-
 - Rafael Dorneles
 - João Benevides Lima
 - Julio Filho
