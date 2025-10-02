@@ -18,7 +18,7 @@ public class Equipamento extends ItemLocavel {
         this.nome = nome;
     }
 
-    @OneToMany(mappedBy = "equipamento")
+    @OneToMany(mappedBy = "itemLocavel")
     private List<Reserva> reservas;
 
     public String getNome() {

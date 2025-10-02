@@ -10,7 +10,7 @@ public class Sala extends ItemLocavel {
     private Integer numero;
     private Long capacidade;
 
-    @OneToMany(mappedBy = "sala")
+    @OneToMany(mappedBy = "itemLocavel")
     private List<Reserva> reservas;
 
     public Sala() {
