@@ -13,22 +13,12 @@ public abstract class ItemLocavel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Boolean estaReservado;
 
     public ItemLocavel() {
-        this.estaReservado = false;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public Boolean getEstaReservado() {
-        return estaReservado;
-    }
-
-    public void setEstaReservado(Boolean estaReservado) {
-        this.estaReservado = estaReservado;
     }
 
     public void setId(Long id) {

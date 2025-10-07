@@ -1,6 +1,8 @@
 package com.example.closedsarc.models;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -37,6 +39,7 @@ public class Turma {
         this.periodo = periodo;
         this.dias = dias;
         this.professor = professor;
+        this.reservas = new ArrayList<Reserva>();
     }
 
     public Long getId() {
