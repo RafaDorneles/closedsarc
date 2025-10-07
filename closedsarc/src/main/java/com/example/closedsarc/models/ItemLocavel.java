@@ -15,13 +15,12 @@ public abstract class ItemLocavel {
     private Long id;
 
     public ItemLocavel() {
-        this.estaReservado = false;
     }
 
     public Long getId() {
         return id;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
