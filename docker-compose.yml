@@ -11,26 +11,55 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-  doiscontainers-1:
+
+  containers-4:
     depends_on:
       db:
         condition: service_started
     build:
-      context: ../admin-service
+      context: ./common
       dockerfile: Dockerfile
-      tags: ["microservicedemo", "doiscontainers-1"]
+      tags: [ "microservicedemo", "containers-4" ]
+    ports:
+      - 8446:8080
+
+  containers-1:
+    depends_on:
+      db:
+        condition: service_started
+      containers-4:
+        condition: service_started
+    build:
+      context: ./admin-service
+      dockerfile: Dockerfile
+      tags: ["microservicedemo", "containers-1"]
     ports:
       - 8443:8080
-  doiscontainers-2:
+  containers-2:
     depends_on:
       db:
         condition: service_started
+      containers-4:
+        condition: service_started
     build:
-      context: ../professor-service
+      context: ./professor-service
       dockerfile: Dockerfile
-      tags: ["microservicedemo", "doiscontainers-2"]
+      tags: ["microservicedemo", "containers-2"]
     ports:
       - 8444:8080
+
+  containers-3:
+    depends_on:
+      db:
+        condition: service_started
+      containers-4:
+        condition: service_started
+    build:
+      context: ./apigateway
+      dockerfile: Dockerfile
+      tags: [ "microservicedemo", "containers-3" ]
+    ports:
+      - 8445:8080
 
 volumes:
   postgres_data:
