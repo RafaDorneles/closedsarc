@@ -1,10 +1,18 @@
-package com.example.apigateway.models;
+package com.example.common.models;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import lombok.Setter;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name = "reserva")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Reserva {
 
     @Id
@@ -22,47 +30,4 @@ public class Reserva {
     @Column(nullable = false)
     private LocalDateTime data;
 
-    public Reserva() {
-    }
-
-    public Reserva(Turma turma, ItemLocavel itemLocavel, LocalDateTime data) {
-        this.turma = turma;
-        this.itemLocavel = itemLocavel;
-        this.data = data;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Turma getTurma() {
-        return turma;
-    }
-
-    public void setTurma(Turma turma) {
-        this.turma = turma;
-    }
-
-    public ItemLocavel getItemLocavel() {
-        return itemLocavel;
-    }
-
-    public void setItemLocavel(ItemLocavel itemLocavel) {
-        this.itemLocavel = itemLocavel;
-    }
-
-    public LocalDateTime getData() {
-        return data;
-    }
-
-    public void setData(LocalDateTime data) {
-        this.data = data;
-    }
-
-
-    
 }

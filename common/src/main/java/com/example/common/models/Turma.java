@@ -1,12 +1,19 @@
-package com.example.apigateway.models;
+package com.example.common.models;
 
 import jakarta.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Setter;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name = "turma")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Turma {
 
     @Id
@@ -29,75 +36,5 @@ public class Turma {
 
     @OneToMany(mappedBy = "turma")
     private List<Reserva> reservas;
-
-    public Turma() {
-    }
-
-    public Turma(Long quantidade, String disciplina, Periodo periodo, Long dias, Professor professor) {
-        this.quantidade = quantidade;
-        this.disciplina = disciplina;
-        this.periodo = periodo;
-        this.dias = dias;
-        this.professor = professor;
-        this.reservas = new ArrayList<Reserva>();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Long quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public String getDisciplina() {
-        return disciplina;
-    }
-
-    public void setDisciplina(String disciplina) {
-        this.disciplina = disciplina;
-    }
-
-    public Periodo getPeriodo() {
-        return periodo;
-    }
-
-    public void setPeriodo(Periodo periodo) {
-        this.periodo = periodo;
-    }
-
-    public Long getDias() {
-        return dias;
-    }
-
-    public void setDias(Long dias) {
-        this.dias = dias;
-    }
-
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
-    }
-
-    public List<Reserva> getReservas() {
-        return reservas;
-    }
-
-    public void setReservas(List<Reserva> reservas) {
-        this.reservas = reservas;
-    }
-
-    
 
 }

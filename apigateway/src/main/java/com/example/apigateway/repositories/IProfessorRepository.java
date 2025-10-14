@@ -1,7 +1,7 @@
 package com.example.apigateway.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.apigateway.models.Professor;
+import com.example.common.models.Professor;
 
 public interface IProfessorRepository extends JpaRepository<Professor, Long> {
 }

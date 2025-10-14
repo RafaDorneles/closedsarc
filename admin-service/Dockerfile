@@ -12,6 +12,7 @@ RUN chmod +x mvnw
 
 # Copiar o restante do código
 COPY src ./src
+COPY common /application/common
 
 # Compilar e empacotar
 RUN ./mvnw clean package -DskipTests

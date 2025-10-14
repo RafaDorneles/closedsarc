@@ -1,10 +1,14 @@
-package com.example.apigateway.models;
+package com.example.common.models;
 
 import jakarta.persistence.*;
 import java.util.List;
+import lombok.Setter;
+import lombok.Getter;
 
 @Entity
 @Table(name = "sala")
+@Getter
+@Setter
 public class Sala extends ItemLocavel {
 
     private Integer numero;
@@ -22,29 +26,4 @@ public class Sala extends ItemLocavel {
         this.numero = numero;
         this.capacidade = capacidade;
     }
-
-    public Integer getNumero() {
-        return numero;
-    }
-
-    public void setNumero(Integer numero) {
-        this.numero = numero;
-    }
-
-    public Long getCapacidade() {
-        return capacidade;
-    }
-
-    public void setCapacidade(Long capacidade) {
-        this.capacidade = capacidade;
-    }
-
-    public List<Reserva> getReservas() {
-        return reservas;
-    }
-
-    public void setReservas(List<Reserva> reservas) {
-        this.reservas = reservas;
-    }
-
 }

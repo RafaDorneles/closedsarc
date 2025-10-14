@@ -12,22 +12,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  containers-4:
-    depends_on:
-      db:
-        condition: service_started
-    build:
-      context: ./common
-      dockerfile: Dockerfile
-      tags: [ "microservicedemo", "containers-4" ]
-    ports:
-      - 8446:8080
-
   containers-1:
     depends_on:
       db:
-        condition: service_started
-      containers-4:
         condition: service_started
     build:
       context: ./admin-service
@@ -39,8 +26,6 @@ services:
     depends_on:
       db:
         condition: service_started
-      containers-4:
-        condition: service_started
     build:
       context: ./professor-service
       dockerfile: Dockerfile
@@ -51,8 +36,6 @@ services:
   containers-3:
     depends_on:
       db:
-        condition: service_started
-      containers-4:
         condition: service_started
     build:
       context: ./apigateway

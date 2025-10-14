@@ -1,4 +1,4 @@
-package com.example.apigateway.models;
+package com.example.common.models;
 
 public enum Periodo {
     NP,
