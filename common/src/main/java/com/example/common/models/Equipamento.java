@@ -1,7 +1,6 @@
 package com.example.common.models;
 
 import jakarta.persistence.*;
-import java.util.List;
 import lombok.Setter;
 import lombok.Getter;
 
