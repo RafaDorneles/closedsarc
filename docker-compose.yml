@@ -12,37 +12,49 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  containers-1:
-    depends_on:
-      db:
-        condition: service_started
+  professor-service:
     build:
-      context: ./admin-service
-      dockerfile: Dockerfile
-      tags: ["microservicedemo", "containers-1"]
+      context: .
+      dockerfile: professor-service/Dockerfile
+    container_name: professor-service
     ports:
-      - 8443:8080
-  containers-2:
+      - "8081:8080"
     depends_on:
-      db:
-        condition: service_started
-    build:
-      context: ./professor-service
-      dockerfile: Dockerfile
-      tags: ["microservicedemo", "containers-2"]
-    ports:
-      - 8444:8080
+      - db
+    networks:
+      - spring-net
 
-  containers-3:
-    depends_on:
-      db:
-        condition: service_started
+  admin-service:
     build:
-      context: ./apigateway
-      dockerfile: Dockerfile
-      tags: [ "microservicedemo", "containers-3" ]
+      context: .
+      dockerfile: admin-service/Dockerfile
+    container_name: admin-service
     ports:
-      - 8445:8080
+      - "8082:8080"
+    depends_on:
+      - db
+    networks:
+      - spring-net
+
+  apigateway:
+    build:
+      context: .
+      dockerfile: apigateway/Dockerfile
+    container_name: apigateway
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - PROFESSOR_SERVICE_URL=http://professor-service:8080
+      - ADMIN_SERVICE_URL=http://admin-service:8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      - professor-service
+      - admin-service
+    networks:
+      - spring-net
+
+networks:
+  spring-net:
 
 volumes:
   postgres_data:

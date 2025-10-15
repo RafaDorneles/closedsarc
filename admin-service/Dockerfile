@@ -1,27 +1,12 @@
-# Estágio de build
-FROM maven:3.8.4-openjdk-17 AS build
+FROM maven:3.9.6-eclipse-temurin-17 AS build
+WORKDIR /app
 
-WORKDIR /application
+COPY . .
 
-# Copiar apenas os arquivos essenciais primeiro
-COPY pom.xml .
-COPY mvnw .
-COPY .mvn .mvn
+RUN mvn -pl admin-service -am clean package -DskipTests
 
-RUN chmod +x mvnw
-
-# Copiar o restante do código
-COPY src ./src
-COPY common /application/common
-
-# Compilar e empacotar
-RUN ./mvnw clean package -DskipTests
-
-# Estágio final
-FROM openjdk:21-jdk-slim
-WORKDIR /application
-
-COPY --from=build /application/target/closedsarc-0.0.1-SNAPSHOT.jar app.jar
-
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
+COPY --from=build /app/admin-service/target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
