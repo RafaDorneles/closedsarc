@@ -36,11 +36,11 @@ services:
     networks:
       - spring-net
 
-  apigateway:
+  datagateway:
     build:
       context: .
-      dockerfile: apigateway/Dockerfile
-    container_name: apigateway
+      dockerfile: datagateway/Dockerfile
+    container_name: datagateway
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - PROFESSOR_SERVICE_URL=http://professor-service:8080

@@ -3,10 +3,10 @@ WORKDIR /app
 
 COPY . .
 
-RUN mvn -pl apigateway -am clean package -DskipTests
+RUN mvn -pl datagateway -am clean package -DskipTests
 
 FROM eclipse-temurin:17-jdk
 WORKDIR /app
-COPY --from=build /app/apigateway/target/*.jar app.jar
+COPY --from=build /app/datagateway/target/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
