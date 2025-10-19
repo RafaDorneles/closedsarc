@@ -38,7 +38,7 @@ public class AdminService implements IAdminService {
     public Admin updateAdmin(Admin admin) {
         Admin existingAdmin = adminRepository.findById(admin.getId())
                 .orElseThrow(() -> new ApiException("Admin not found", HttpStatus.NOT_FOUND));
-        existingAdmin.setSenha(admin.getSenha());
+        existingAdmin.setPassword(admin.getPassword());
         existingAdmin.setEmail(admin.getEmail());
         return adminRepository.save(existingAdmin);
     }
