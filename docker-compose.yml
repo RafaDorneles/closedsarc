@@ -4,9 +4,9 @@ services:
     container_name: postgres_container
     restart: always
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
-      POSTGRES_DB: closedsarc
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
@@ -20,7 +20,7 @@ services:
     ports:
       - "8081:8080"
     depends_on:
-      - db
+      - datagateway
     networks:
       - spring-net
 
@@ -32,7 +32,7 @@ services:
     ports:
       - "8082:8080"
     depends_on:
-      - db
+      - datagateway
     networks:
       - spring-net
 
@@ -42,14 +42,16 @@ services:
       dockerfile: datagateway/Dockerfile
     container_name: datagateway
     environment:
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
       - SPRING_PROFILES_ACTIVE=docker
       - PROFESSOR_SERVICE_URL=http://professor-service:8080
       - ADMIN_SERVICE_URL=http://admin-service:8080
     ports:
       - "8080:8080"
     depends_on:
-      - professor-service
-      - admin-service
+      - db
     networks:
       - spring-net
 
