@@ -1,6 +1,8 @@
 package com.example.datagateway.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,28 +29,36 @@ public class AdminController {
     }
 
     @GetMapping("/")
-    public List<Admin> getAllAdmins() {
-        return adminService.getAllAdmins();
+    public ResponseEntity<List<Admin>> getAllAdmins() {
+        List<Admin> admins = adminService.getAllAdmins();
+        if (admins.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(admins);
     }
 
     @GetMapping("/{id}")
-    public Admin getAdminById(@PathVariable Long id) {
-        return adminService.getAdminById(id);
+    public ResponseEntity<Admin> getAdminById(@PathVariable Long id) {
+        Admin admin = adminService.getAdminById(id);
+        return ResponseEntity.ok(admin);
     }
 
     @PostMapping("/")
-    public Admin createAdmin(@RequestBody AdminDTO dto) {
-        return adminService.createAdmin(dto);
+    public ResponseEntity<Admin> createAdmin(@RequestBody AdminDTO dto) {
+        Admin admin = adminService.createAdmin(dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(admin);
     }
 
     @PutMapping("/")
-    public Admin updateAdmin(@RequestBody Admin admin) {
-        return adminService.updateAdmin(admin);
+    public ResponseEntity<Admin> updateAdmin(@RequestBody Admin admin) {
+        Admin updatedAdmin = adminService.updateAdmin(admin);
+        return ResponseEntity.ok(updatedAdmin);
     }
 
     @DeleteMapping("/{id}")
-    public Admin deleteAdmin(@PathVariable Long id) {
-        return adminService.deleteAdmin(id);
+    public ResponseEntity<Admin> deleteAdmin(@PathVariable Long id) {
+        Admin deletedAdmin = adminService.deleteAdmin(id);
+        return ResponseEntity.ok(deletedAdmin);
     }
 
 }
