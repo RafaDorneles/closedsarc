@@ -1,18 +1,19 @@
 package com.example.common.models;
 
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Column;
-import java.time.LocalDateTime;
-import lombok.Setter;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "rents")
@@ -27,11 +28,11 @@ public class Rent {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "RoomID", nullable = false)
-    private Class class;
-
+    @JoinColumn(name = "classroom_id", nullable = false)
+    private Classroom classroom;
+    
     @ManyToOne
-    @JoinColumn(name = "rentableID", nullable = false)
+    @JoinColumn(name = "rentable_id", nullable = false)
     private Rentable rentableItem;
 
     @Column(nullable = false)

@@ -24,7 +24,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Class {
+public class Classroom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,10 +42,10 @@ public class Class {
     private Day days;
 
     @ManyToOne
-    @JoinColumn(name = "professorID", nullable = false)
+    @JoinColumn(name = "professor_id", nullable = false)
     private Professor professor;
 
-    @OneToMany(mappedBy = "class")
+    @OneToMany(mappedBy = "classroom")
     private List<Rent> rents;
 
 }
