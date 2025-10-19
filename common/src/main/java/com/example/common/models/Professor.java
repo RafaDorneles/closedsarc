@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 @Entity
-@Table(name = "professor")
+@Table(name = "professors")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,15 +20,15 @@ public class Professor {
     private Long id;
 
     @Column(nullable = false)
-    private String nome;
+    private String name;
 
     @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
-    private String senha;
+    private String password;
 
     @OneToMany(mappedBy = "professor")
-    private List<Turma> turmas;
+    private List<Room> classes;
 
 }

@@ -1,6 +1,6 @@
 package com.example.common.models;
 
-public enum Periodo {
+public enum Period {
     NP,
     LM,
     JK

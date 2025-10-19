@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 @Entity
-@Table(name = "admin")
+@Table(name = "admins")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,6 +27,6 @@ public class Admin {
     private String email;
 
     @Column(nullable = false)
-    private String senha;
+    private String password;
 
 }
