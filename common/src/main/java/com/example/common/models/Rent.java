@@ -33,7 +33,7 @@ public class Rent {
     
     @ManyToOne
     @JoinColumn(name = "rentable_id", nullable = false)
-    private Rentable rentableItem;
+    private Rentable rentable;
 
     @Column(nullable = false)
     private LocalDateTime data;

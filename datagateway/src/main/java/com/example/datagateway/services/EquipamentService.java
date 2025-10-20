@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 
 import com.example.common.exceptions.ApiException;
 import com.example.common.models.Equipament;
 import com.example.datagateway.repositories.IEquipamentRepository;
 import com.example.datagateway.services.interfaces.IEquipamentService;
 
+@Service
 public class EquipamentService implements IEquipamentService {
 
     @Autowired
@@ -27,17 +29,19 @@ public class EquipamentService implements IEquipamentService {
 
     @Override
     public Equipament createEquipament(Equipament equipament) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return equipamentRepository.save(equipament);
     }
 
     @Override
     public Equipament updateEquipament(Equipament equipament) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return equipamentRepository.save(equipament);
     }
 
     @Override
     public Equipament deleteEquipament(Long id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Equipament equipament = equipamentRepository.findById(id).orElseThrow(() -> new ApiException("Equipament not found", HttpStatus.NOT_FOUND));
+        equipamentRepository.delete(equipament);
+        return equipament;
     }
     
 }

@@ -13,20 +13,20 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AdminDTO {
     
-    private String senha;
+    private String password;
     private String email;
 
     public Admin toEntity(){    
         Admin admin = new Admin();
         admin.setEmail(this.email);
-        admin.setSenha(this.senha);
+        admin.setPassword(this.password);
         return admin;
     }
 
     public AdminDTO toDTO(Admin admin){
         AdminDTO dto = new AdminDTO();
         dto.setEmail(admin.getEmail());
-        dto.setSenha(admin.getSenha());
+        dto.setPassword(admin.getPassword());
         return dto;
     }
     

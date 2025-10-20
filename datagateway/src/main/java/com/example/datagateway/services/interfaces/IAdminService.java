@@ -9,6 +9,6 @@ public interface IAdminService {
     List<Admin> getAllAdmins();
     Admin getAdminById(Long id);
     Admin createAdmin(AdminDTO dto);
-    Admin updateAdmin(Admin admin);
+    Admin updateAdmin(AdminDTO dto, Long id);
     Admin deleteAdmin(Long id);
 }

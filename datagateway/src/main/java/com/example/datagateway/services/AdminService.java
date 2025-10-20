@@ -35,11 +35,11 @@ public class AdminService implements IAdminService {
     }
 
     @Override
-    public Admin updateAdmin(Admin admin) {
-        Admin existingAdmin = adminRepository.findById(admin.getId())
+    public Admin updateAdmin(AdminDTO dto, Long id) {
+        Admin existingAdmin = adminRepository.findById(id)
                 .orElseThrow(() -> new ApiException("Admin not found", HttpStatus.NOT_FOUND));
-        existingAdmin.setPassword(admin.getPassword());
-        existingAdmin.setEmail(admin.getEmail());
+        existingAdmin.setPassword(dto.getPassword());
+        existingAdmin.setEmail(dto.getEmail());
         return adminRepository.save(existingAdmin);
     }
 
