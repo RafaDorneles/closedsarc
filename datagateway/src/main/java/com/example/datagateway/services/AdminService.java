@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.example.common.dtos.AdminDTO;
+import com.example.common.dtos.requestsDTO.AdminRequestDTO;
 import com.example.common.exceptions.ApiException;
+import com.example.common.mappers.AdminMapper;
 import com.example.common.models.Admin;
 import com.example.datagateway.repositories.IAdminRepository;
 import com.example.datagateway.services.interfaces.IAdminService;
@@ -16,39 +18,40 @@ import com.example.datagateway.services.interfaces.IAdminService;
 public class AdminService implements IAdminService {
 
     @Autowired
-    private IAdminRepository adminRepository; 
+    private IAdminRepository adminRepository;
 
     @Override
-    public List<Admin> getAllAdmins() {
-        return adminRepository.findAll();
+    public List<AdminDTO> getAllAdmins() {
+        return adminRepository.findAll().stream().map(AdminMapper::entityToDto).toList();
     }
 
     @Override
-    public Admin getAdminById(Long id) {
-        return adminRepository.findById(id).orElseThrow(() -> new ApiException("Admin not found", HttpStatus.NOT_FOUND));
+    public AdminDTO getAdminById(Long id) {
+        return adminRepository.findById(id).map(AdminMapper::entityToDto)
+                .orElseThrow(() -> new ApiException("Admin not found", HttpStatus.NOT_FOUND));
     }
 
     @Override
-    public Admin createAdmin(AdminDTO dto) {
-        Admin admin = dto.toEntity();
-        return adminRepository.save(admin);
+    public AdminDTO createAdmin(AdminRequestDTO dto) {
+        Admin admin = AdminMapper.requestToEntity(dto);
+        return AdminMapper.entityToDto(adminRepository.save(admin));
     }
 
     @Override
-    public Admin updateAdmin(AdminDTO dto, Long id) {
+    public AdminDTO updateAdmin(AdminRequestDTO dto, Long id) {
         Admin existingAdmin = adminRepository.findById(id)
                 .orElseThrow(() -> new ApiException("Admin not found", HttpStatus.NOT_FOUND));
         existingAdmin.setPassword(dto.getPassword());
         existingAdmin.setEmail(dto.getEmail());
-        return adminRepository.save(existingAdmin);
+        return AdminMapper.entityToDto(adminRepository.save(existingAdmin));
     }
 
     @Override
-    public Admin deleteAdmin(Long id) {
+    public AdminDTO deleteAdmin(Long id) {
         Admin admin = adminRepository.findById(id)
                 .orElseThrow(() -> new ApiException("Admin not found", HttpStatus.NOT_FOUND));
         adminRepository.delete(admin);
-        return admin;
+        return AdminMapper.entityToDto(admin);
     }
 
 }

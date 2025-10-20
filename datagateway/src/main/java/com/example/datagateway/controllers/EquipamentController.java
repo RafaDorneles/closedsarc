@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.common.models.Equipament;
+import com.example.common.dtos.EquipamentDTO;
+import com.example.common.dtos.requestsDTO.EquipamentRequestDTO;
 import com.example.datagateway.services.interfaces.IEquipamentService;
 
 @RestController
@@ -24,8 +26,8 @@ public class EquipamentController {
     private IEquipamentService equipamentService;
 
     @GetMapping("/")
-    public ResponseEntity<List<Equipament>> getAllEquipaments() {
-        List<Equipament> equipaments = equipamentService.getAllEquipaments();
+    public ResponseEntity<List<EquipamentDTO>> getAllEquipaments() {
+        List<EquipamentDTO> equipaments = equipamentService.getAllEquipaments();
         if(equipaments.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -33,20 +35,20 @@ public class EquipamentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Equipament> getEquipamentById(@PathVariable Long id) {
-        Equipament equipament = equipamentService.getEquipamentById(id);
+    public ResponseEntity<EquipamentDTO> getEquipamentById(@PathVariable Long id) {
+        EquipamentDTO equipament = equipamentService.getEquipamentById(id);
         return ResponseEntity.ok(equipament);
     }
 
     @PostMapping("/")
-    public ResponseEntity<Equipament> createEquipament(@RequestBody Equipament equipament) {
-        Equipament createdEquipament = equipamentService.createEquipament(equipament);
+    public ResponseEntity<EquipamentDTO> createEquipament(@RequestBody EquipamentRequestDTO equipament) {
+        EquipamentDTO createdEquipament = equipamentService.createEquipament(equipament);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdEquipament);
     }
 
-    @PutMapping("/")
-    public ResponseEntity<Equipament> updateEquipament(@RequestBody Equipament equipament) {
-        Equipament updatedEquipament = equipamentService.updateEquipament(equipament);
+    @PutMapping("/{id}")
+    public ResponseEntity<EquipamentDTO> updateEquipament(@RequestBody EquipamentRequestDTO equipament, @PathVariable Long id) {
+        EquipamentDTO updatedEquipament = equipamentService.updateEquipament(equipament, id);
         return ResponseEntity.ok(updatedEquipament);
     }
     

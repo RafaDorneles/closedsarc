@@ -2,6 +2,8 @@ package com.example.common.models;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,7 +35,8 @@ public class Rent {
     
     @ManyToOne
     @JoinColumn(name = "rentable_id", nullable = false)
-    private Rentable rentable;
+    @JsonBackReference
+    private Rentable rentableItem;
 
     @Column(nullable = false)
     private LocalDateTime data;

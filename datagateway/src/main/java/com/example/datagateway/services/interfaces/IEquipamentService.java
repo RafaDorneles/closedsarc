@@ -2,12 +2,13 @@ package com.example.datagateway.services.interfaces;
 
 import java.util.List;
 
-import com.example.common.models.Equipament;
+import com.example.common.dtos.EquipamentDTO;
+import com.example.common.dtos.requestsDTO.EquipamentRequestDTO;
 
 public interface IEquipamentService {
-    List<Equipament> getAllEquipaments();
-    Equipament getEquipamentById(Long id);
-    Equipament createEquipament(Equipament equipament);
-    Equipament updateEquipament(Equipament equipament);
-    Equipament deleteEquipament(Long id);
+    List<EquipamentDTO> getAllEquipaments();
+    EquipamentDTO getEquipamentById(Long id);
+    EquipamentDTO createEquipament(EquipamentRequestDTO equipament);
+    EquipamentDTO updateEquipament(EquipamentRequestDTO equipament, Long id);
+    EquipamentDTO deleteEquipament(Long id);
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import com.example.common.dtos.AdminDTO;
-import com.example.common.models.Admin;
+import com.example.common.dtos.requestsDTO.AdminRequestDTO;
 import com.example.datagateway.services.interfaces.IAdminService;
 
 @RestController
@@ -29,8 +29,8 @@ public class AdminController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<Admin>> getAllAdmins() {
-        List<Admin> admins = adminService.getAllAdmins();
+    public ResponseEntity<List<AdminDTO>> getAllAdmins() {
+        List<AdminDTO> admins = adminService.getAllAdmins();
         if(admins.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -38,26 +38,26 @@ public class AdminController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Admin> getAdminById(@PathVariable Long id) {
-        Admin admin = adminService.getAdminById(id);
+    public ResponseEntity<AdminDTO> getAdminById(@PathVariable Long id) {
+        AdminDTO admin = adminService.getAdminById(id);
         return ResponseEntity.ok(admin);
     }
 
     @PostMapping("/")
-    public ResponseEntity<Admin> createAdmin(@RequestBody AdminDTO dto) {
-        Admin createdAdmin = adminService.createAdmin(dto);
+    public ResponseEntity<AdminDTO> createAdmin(@RequestBody AdminRequestDTO dto) {
+        AdminDTO createdAdmin = adminService.createAdmin(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAdmin);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Admin> updateAdmin(@RequestBody AdminDTO dto, @PathVariable Long id) {
-        Admin updatedAdmin = adminService.updateAdmin(dto, id);
+    public ResponseEntity<AdminDTO> updateAdmin(@RequestBody AdminRequestDTO dto, @PathVariable Long id) {
+        AdminDTO updatedAdmin = adminService.updateAdmin(dto, id);
         return ResponseEntity.ok(updatedAdmin);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Admin> deleteAdmin(@PathVariable Long id) {
-        Admin deletedAdmin = adminService.deleteAdmin(id);
+    public ResponseEntity<AdminDTO> deleteAdmin(@PathVariable Long id) {
+        AdminDTO deletedAdmin = adminService.deleteAdmin(id);
         return ResponseEntity.ok(deletedAdmin);
     }
 

@@ -3,6 +3,8 @@ package com.example.common.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,7 +26,8 @@ public abstract class Rentable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "rentable")
+    @OneToMany(mappedBy = "rentableItem")
+    @JsonManagedReference
     private List<Rent> rents;
 
     public Rentable() {
