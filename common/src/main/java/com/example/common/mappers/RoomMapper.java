@@ -2,11 +2,14 @@ package com.example.common.mappers;
 
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Component;
+
 import com.example.common.dtos.RoomDTO;
 import com.example.common.dtos.requestsDTO.RoomRequestDTO;
 import com.example.common.mappers.interfaces.IRoomMapper;
 import com.example.common.models.Room;
 
+@Component
 public class RoomMapper implements IRoomMapper {
 
     @Override

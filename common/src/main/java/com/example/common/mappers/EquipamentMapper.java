@@ -2,13 +2,17 @@ package com.example.common.mappers;
 
 import java.util.ArrayList;
 
+import org.springframework.stereotype.Component;
+
 import com.example.common.dtos.EquipamentDTO;
 import com.example.common.dtos.requestsDTO.EquipamentRequestDTO;
 import com.example.common.mappers.interfaces.IEquipamentMapper;
 import com.example.common.models.Equipament;
 
+@Component
 public class EquipamentMapper implements IEquipamentMapper {
 
+    @Override
     public EquipamentDTO entityToDto(Equipament equipament) {
         if (equipament == null) {
             return null;
@@ -22,6 +26,7 @@ public class EquipamentMapper implements IEquipamentMapper {
         return dto;
     }
 
+    @Override
     public Equipament dtoToEntity(EquipamentDTO dto) {
         if (dto == null) {
             return null;
@@ -35,6 +40,7 @@ public class EquipamentMapper implements IEquipamentMapper {
         return equipament;
     }
 
+    @Override
     public Equipament requestToEntity(EquipamentRequestDTO dto) {
         if (dto == null) {
             return null;

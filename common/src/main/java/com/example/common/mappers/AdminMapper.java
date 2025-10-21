@@ -1,12 +1,16 @@
 package com.example.common.mappers;
 
+import org.springframework.stereotype.Component;
+
 import com.example.common.dtos.AdminDTO;
 import com.example.common.dtos.requestsDTO.AdminRequestDTO;
 import com.example.common.mappers.interfaces.IAdminMapper;
 import com.example.common.models.Admin;
 
+@Component
 public class AdminMapper implements IAdminMapper{
 
+    @Override
     public AdminDTO entityToDto(Admin admin) {
         if (admin == null) {
             return null;
@@ -20,6 +24,7 @@ public class AdminMapper implements IAdminMapper{
         return dto;
     }
 
+    @Override
     public Admin dtoToEntity(AdminDTO dto) {
         if (dto == null) {
             return null;
@@ -33,6 +38,7 @@ public class AdminMapper implements IAdminMapper{
         return admin;
     }
 
+    @Override
     public Admin requestToEntity(AdminRequestDTO dto) {
         if (dto == null) {
             return null;
