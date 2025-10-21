@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 import com.example.common.dtos.EquipamentDTO;
 import com.example.common.dtos.requestsDTO.EquipamentRequestDTO;
+import com.example.common.mappers.interfaces.IEquipamentMapper;
 import com.example.common.models.Equipament;
 
-public class EquipamentMapper {
+public class EquipamentMapper implements IEquipamentMapper {
 
-    public static EquipamentDTO entityToDto(Equipament equipament) {
+    public EquipamentDTO entityToDto(Equipament equipament) {
         if (equipament == null) {
             return null;
         }
@@ -21,7 +22,7 @@ public class EquipamentMapper {
         return dto;
     }
 
-    public static Equipament dtoToEntity(EquipamentDTO dto) {
+    public Equipament dtoToEntity(EquipamentDTO dto) {
         if (dto == null) {
             return null;
         }
@@ -34,7 +35,7 @@ public class EquipamentMapper {
         return equipament;
     }
 
-    public static Equipament requestToEntity(EquipamentRequestDTO dto) {
+    public Equipament requestToEntity(EquipamentRequestDTO dto) {
         if (dto == null) {
             return null;
         }

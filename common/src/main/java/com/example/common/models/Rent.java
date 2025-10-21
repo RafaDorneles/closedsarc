@@ -35,7 +35,6 @@ public class Rent {
     
     @ManyToOne
     @JoinColumn(name = "rentable_id", nullable = false)
-    @JsonBackReference
     private Rentable rentableItem;
 
     @Column(nullable = false)

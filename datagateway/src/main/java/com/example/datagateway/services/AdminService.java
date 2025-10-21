@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.common.dtos.AdminDTO;
 import com.example.common.dtos.requestsDTO.AdminRequestDTO;
 import com.example.common.exceptions.ApiException;
-import com.example.common.mappers.AdminMapper;
+import com.example.common.mappers.interfaces.IAdminMapper;
 import com.example.common.models.Admin;
 import com.example.datagateway.repositories.IAdminRepository;
 import com.example.datagateway.services.interfaces.IAdminService;
@@ -20,21 +20,24 @@ public class AdminService implements IAdminService {
     @Autowired
     private IAdminRepository adminRepository;
 
+    @Autowired
+    private IAdminMapper adminMapper;
+
     @Override
     public List<AdminDTO> getAllAdmins() {
-        return adminRepository.findAll().stream().map(AdminMapper::entityToDto).toList();
+        return adminRepository.findAll().stream().map(adminMapper::entityToDto).toList();
     }
 
     @Override
     public AdminDTO getAdminById(Long id) {
-        return adminRepository.findById(id).map(AdminMapper::entityToDto)
+        return adminRepository.findById(id).map(adminMapper::entityToDto)
                 .orElseThrow(() -> new ApiException("Admin not found", HttpStatus.NOT_FOUND));
     }
 
     @Override
     public AdminDTO createAdmin(AdminRequestDTO dto) {
-        Admin admin = AdminMapper.requestToEntity(dto);
-        return AdminMapper.entityToDto(adminRepository.save(admin));
+        Admin admin = adminMapper.requestToEntity(dto);
+        return adminMapper.entityToDto(adminRepository.save(admin));
     }
 
     @Override
@@ -43,7 +46,7 @@ public class AdminService implements IAdminService {
                 .orElseThrow(() -> new ApiException("Admin not found", HttpStatus.NOT_FOUND));
         existingAdmin.setPassword(dto.getPassword());
         existingAdmin.setEmail(dto.getEmail());
-        return AdminMapper.entityToDto(adminRepository.save(existingAdmin));
+        return adminMapper.entityToDto(adminRepository.save(existingAdmin));
     }
 
     @Override
@@ -51,7 +54,7 @@ public class AdminService implements IAdminService {
         Admin admin = adminRepository.findById(id)
                 .orElseThrow(() -> new ApiException("Admin not found", HttpStatus.NOT_FOUND));
         adminRepository.delete(admin);
-        return AdminMapper.entityToDto(admin);
+        return adminMapper.entityToDto(admin);
     }
 
 }

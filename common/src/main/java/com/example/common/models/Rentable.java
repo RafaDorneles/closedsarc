@@ -27,7 +27,6 @@ public abstract class Rentable {
     private Long id;
 
     @OneToMany(mappedBy = "rentableItem")
-    @JsonManagedReference
     private List<Rent> rents;
 
     public Rentable() {

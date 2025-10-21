@@ -2,11 +2,12 @@ package com.example.common.mappers;
 
 import com.example.common.dtos.AdminDTO;
 import com.example.common.dtos.requestsDTO.AdminRequestDTO;
+import com.example.common.mappers.interfaces.IAdminMapper;
 import com.example.common.models.Admin;
 
-public class AdminMapper {
+public class AdminMapper implements IAdminMapper{
 
-    public static AdminDTO entityToDto(Admin admin) {
+    public AdminDTO entityToDto(Admin admin) {
         if (admin == null) {
             return null;
         }
@@ -19,7 +20,7 @@ public class AdminMapper {
         return dto;
     }
 
-    public static Admin dtoToEntity(AdminDTO dto) {
+    public Admin dtoToEntity(AdminDTO dto) {
         if (dto == null) {
             return null;
         }
@@ -32,7 +33,7 @@ public class AdminMapper {
         return admin;
     }
 
-    public static Admin requestToEntity(AdminRequestDTO dto) {
+    public Admin requestToEntity(AdminRequestDTO dto) {
         if (dto == null) {
             return null;
         }
