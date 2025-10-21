@@ -2,7 +2,6 @@ package com.example.common.dtos;
 
 import java.util.List;
 
-import com.example.common.models.Professor;
 import com.example.common.models.Rent;
 
 import lombok.AllArgsConstructor;
@@ -14,13 +13,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClassroomDTO {
+public class RoomDTO {
     private Long id;
-    private Integer numberOfStudents;
-    private String subject;
-    private List<String> periods;
-    private List<String> days;
-    private Professor professor;
+    private Integer capacity;
+    private Integer number;
     private List<Rent> rents;
 
 }

@@ -36,10 +36,10 @@ public class Classroom {
     private String subject;
 
     @Enumerated(EnumType.STRING)
-    private Period period;
+    private List<Period> periods;
 
     @Enumerated(EnumType.STRING)
-    private Day days;
+    private List<Day> days;
 
     @ManyToOne
     @JoinColumn(name = "professor_id", nullable = false)

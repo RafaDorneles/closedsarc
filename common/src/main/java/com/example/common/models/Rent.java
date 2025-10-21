@@ -38,6 +38,6 @@ public class Rent {
     private Rentable rentableItem;
 
     @Column(nullable = false)
-    private LocalDateTime data;
+    private LocalDateTime rentDate;
 
 }

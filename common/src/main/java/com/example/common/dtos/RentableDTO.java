@@ -1,18 +1,19 @@
 package com.example.common.dtos;
 
-import com.example.common.models.Admin;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import com.example.common.models.Rent;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdminDTO {
+public class RentableDTO {
+
     private Long id;
-    private String password;
-    private String email;
+    private List<Rent> rents;
 }
