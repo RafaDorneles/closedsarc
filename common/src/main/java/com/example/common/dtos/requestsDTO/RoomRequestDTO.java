@@ -1,9 +1,14 @@
 package com.example.common.dtos.requestsDTO;
 
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import com.example.common.models.Rent;
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class RoomRequestDTO {
     private Integer capacity;
     private Integer number;

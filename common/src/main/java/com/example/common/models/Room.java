@@ -15,7 +15,7 @@ import lombok.Setter;
 public class Room extends Rentable {
 
     private Integer number;
-    private Long capacity;
+    private Integer capacity;
 
     @OneToMany(mappedBy = "rentableItem")
     private List<Rent> rents;
@@ -24,7 +24,7 @@ public class Room extends Rentable {
         super();
     }
 
-    public Room(Integer number, Long capacity) {
+    public Room(Integer number, Integer capacity) {
         super();
         this.number = number;
         this.capacity = capacity;
