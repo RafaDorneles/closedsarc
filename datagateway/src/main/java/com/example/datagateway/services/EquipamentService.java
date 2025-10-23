@@ -41,7 +41,14 @@ public class EquipamentService implements IEquipamentService {
 
     @Override
     public EquipamentDTO updateEquipament(EquipamentRequestDTO equipament, Long id) {
-        return equipamentMapper.entityToDto(equipamentRepository.save(equipamentMapper.requestToEntity(equipament)));
+        return equipamentRepository.findById(id)
+                .map(existingEquipament -> {
+                    Equipament updatedEquipament = equipamentMapper.requestToEntity(equipament);
+                    updatedEquipament.setId(existingEquipament.getId());
+                    Equipament savedEquipament = equipamentRepository.save(updatedEquipament);
+                    return equipamentMapper.entityToDto(savedEquipament);
+                })
+                .orElseThrow(() -> new ApiException("Equipament not found", HttpStatus.NOT_FOUND));
     }
 
     @Override
