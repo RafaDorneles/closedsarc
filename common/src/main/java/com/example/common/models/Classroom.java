@@ -24,6 +24,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+//Supposed to be Class, but it's a reserved word in Java
 public class Classroom {
 
     @Id
