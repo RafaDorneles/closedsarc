@@ -16,7 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RentDTO {
     private Long id;
-    private Classroom classroom;
-    private Rentable rentableItem;
+    private Long classroomId;
+    private Long rentableItemId;
     private LocalDateTime rentDate;
 }

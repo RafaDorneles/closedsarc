@@ -1,10 +1,10 @@
 package com.example.common.dtos.requestsDTO;
 
-import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
-import com.example.common.models.Classroom;
-import com.example.common.models.Rentable;
-
+@Getter
+@Setter
 public class RentRequestDTO {
     private Long classroomId;
     private Long rentableItemId;

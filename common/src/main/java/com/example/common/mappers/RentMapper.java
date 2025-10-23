@@ -2,11 +2,9 @@ package com.example.common.mappers;
 
 import java.time.LocalDateTime;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.common.dtos.RentDTO;
-import com.example.common.dtos.requestsDTO.RentRequestDTO;
 import com.example.common.mappers.interfaces.IRentMapper;
 import com.example.common.models.Classroom;
 import com.example.common.models.Rent;
