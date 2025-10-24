@@ -1,5 +1,6 @@
 package com.example.common.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -22,11 +23,13 @@ public class Room extends Rentable {
 
     public Room() {
         super();
+        rents = new ArrayList<>();
     }
 
     public Room(Integer number, Integer capacity) {
         super();
         this.number = number;
         this.capacity = capacity;
+        this.rents = new ArrayList<>();
     }
 }

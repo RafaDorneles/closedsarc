@@ -2,15 +2,20 @@ package com.example.common.mappers;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.common.dtos.RoomDTO;
 import com.example.common.dtos.requestsDTO.RoomRequestDTO;
+import com.example.common.mappers.interfaces.IRentMapper;
 import com.example.common.mappers.interfaces.IRoomMapper;
 import com.example.common.models.Room;
 
 @Component
 public class RoomMapper implements IRoomMapper {
+
+    @Autowired
+    private IRentMapper rentMapper;
 
     @Override
     public RoomDTO entityToDto(Room room) {
@@ -22,7 +27,9 @@ public class RoomMapper implements IRoomMapper {
         roomDTO.setId(room.getId());
         roomDTO.setCapacity(room.getCapacity());
         roomDTO.setNumber(room.getNumber());
-        roomDTO.setRents(room.getRents());
+        roomDTO.setRents(room.getRents().stream()
+                .map(rentMapper::entityToDto)
+                .toList());
         return roomDTO;
     }
 
@@ -36,7 +43,6 @@ public class RoomMapper implements IRoomMapper {
         room.setId(roomDTO.getId());
         room.setNumber(roomDTO.getNumber());
         room.setCapacity(roomDTO.getCapacity());
-        room.setRents(roomDTO.getRents());
         return room;
     }
 
@@ -49,7 +55,6 @@ public class RoomMapper implements IRoomMapper {
         Room room = new Room();
         room.setNumber(roomRequestDTO.getNumber());
         room.setCapacity(roomRequestDTO.getCapacity());
-        room.setRents(new ArrayList<>());
         return room;
     }
     

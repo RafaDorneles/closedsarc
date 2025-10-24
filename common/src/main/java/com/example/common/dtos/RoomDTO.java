@@ -2,8 +2,6 @@ package com.example.common.dtos;
 
 import java.util.List;
 
-import com.example.common.models.Rent;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +15,6 @@ public class RoomDTO {
     private Long id;
     private Integer capacity;
     private Integer number;
-    private List<Rent> rents;
+    private List<RentDTO> rents;
 
 }

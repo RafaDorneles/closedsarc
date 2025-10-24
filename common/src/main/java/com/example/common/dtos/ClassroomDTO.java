@@ -2,9 +2,6 @@ package com.example.common.dtos;
 
 import java.util.List;
 
-import com.example.common.models.Professor;
-import com.example.common.models.Rent;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +17,7 @@ public class ClassroomDTO {
     private String subject;
     private List<String> periods;
     private List<String> days;
-    private Professor professor;
-    private List<Rent> rents;
+    private ProfessorDTO professor;
+    private List<RentDTO> rents;
 
 }

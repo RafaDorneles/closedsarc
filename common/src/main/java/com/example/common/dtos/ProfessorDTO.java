@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import com.example.common.models.Classroom;
 
 @Getter
 @Setter
@@ -17,5 +16,5 @@ public class ProfessorDTO {
     private String name;
     private String email;
     private String password;
-    private List<Classroom> classes;
+    private List<ClassroomDTO> classes;
 }

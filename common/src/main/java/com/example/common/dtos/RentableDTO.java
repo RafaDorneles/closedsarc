@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
-import com.example.common.models.Rent;
 
 @Getter
 @Setter
@@ -15,5 +14,5 @@ import com.example.common.models.Rent;
 public class RentableDTO {
 
     private Long id;
-    private List<Rent> rents;
+    private List<RentDTO> rents;
 }

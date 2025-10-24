@@ -31,7 +31,7 @@ public class ClassroomMapper implements IClassroomMapper {
         dto.setProfessor(classroom.getProfessor());
         dto.setRents(classroom.getRents());
 
-        
+      
         return dto;
     }
 

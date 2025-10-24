@@ -8,4 +8,5 @@ public interface IRoomMapper {
     public RoomDTO entityToDto(Room room);
     public Room dtoToEntity(RoomDTO roomDTO);
     public Room requestToEntity(RoomRequestDTO roomRequestDTO);
+    
 }

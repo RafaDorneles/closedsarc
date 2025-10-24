@@ -2,9 +2,11 @@ package com.example.common.mappers;
 
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.common.dtos.RentDTO;
+import com.example.common.mappers.interfaces.IClassroomMapper;
 import com.example.common.mappers.interfaces.IRentMapper;
 import com.example.common.models.Classroom;
 import com.example.common.models.Rent;
@@ -12,6 +14,12 @@ import com.example.common.models.Rentable;
 
 @Component
 public class RentMapper implements IRentMapper{
+
+    @Autowired
+    private IClassroomMapper classroomMapper;
+
+    @Autowired
+    private IRentableMapper rentableMapper;
 
     @Override
     public RentDTO entityToDto(Rent rent) {
