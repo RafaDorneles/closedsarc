@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.example.common.dtos.EquipamentDTO;
-import com.example.common.dtos.requestsDTO.EquipamentRequestDTO;
+import com.example.common.dtos.createDTOs.CreateEquipamentDTO;
 import com.example.common.exceptions.ApiException;
 import com.example.common.mappers.interfaces.IEquipamentMapper;
 import com.example.common.models.Equipament;
@@ -35,12 +35,12 @@ public class EquipamentService implements IEquipamentService {
     }
 
     @Override
-    public EquipamentDTO createEquipament(EquipamentRequestDTO equipament) {
+    public EquipamentDTO createEquipament(CreateEquipamentDTO equipament) {
         return equipamentMapper.entityToDto(equipamentRepository.save(equipamentMapper.requestToEntity(equipament)));
     }
 
     @Override
-    public EquipamentDTO updateEquipament(EquipamentRequestDTO equipament, Long id) {
+    public EquipamentDTO updateEquipament(CreateEquipamentDTO equipament, Long id) {
         return equipamentRepository.findById(id)
                 .map(existingEquipament -> {
                     Equipament updatedEquipament = equipamentMapper.requestToEntity(equipament);

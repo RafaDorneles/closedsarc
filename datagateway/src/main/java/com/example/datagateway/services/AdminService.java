@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.example.common.dtos.AdminDTO;
-import com.example.common.dtos.requestsDTO.AdminRequestDTO;
+import com.example.common.dtos.createDTOs.CreateAdminDTO;
 import com.example.common.exceptions.ApiException;
 import com.example.common.mappers.interfaces.IAdminMapper;
 import com.example.common.models.Admin;
@@ -35,13 +35,13 @@ public class AdminService implements IAdminService {
     }
 
     @Override
-    public AdminDTO createAdmin(AdminRequestDTO dto) {
+    public AdminDTO createAdmin(CreateAdminDTO dto) {
         Admin admin = adminMapper.requestToEntity(dto);
         return adminMapper.entityToDto(adminRepository.save(admin));
     }
 
     @Override
-    public AdminDTO updateAdmin(AdminRequestDTO dto, Long id) {
+    public AdminDTO updateAdmin(CreateAdminDTO dto, Long id) {
         Admin existingAdmin = adminRepository.findById(id)
                 .orElseThrow(() -> new ApiException("Admin not found", HttpStatus.NOT_FOUND));
         existingAdmin.setPassword(dto.getPassword());

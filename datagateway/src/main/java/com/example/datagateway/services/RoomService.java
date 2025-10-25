@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.example.common.dtos.RoomDTO;
-import com.example.common.dtos.requestsDTO.RoomRequestDTO;
+import com.example.common.dtos.createDTOs.CreateRoomDTO;
 import com.example.common.exceptions.ApiException;
 import com.example.common.mappers.interfaces.IRoomMapper;
 import com.example.datagateway.repositories.IRoomRepository;
@@ -33,12 +33,12 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public RoomDTO createRoom(RoomRequestDTO room) {
+    public RoomDTO createRoom(CreateRoomDTO room) {
         return roomMapper.entityToDto(roomRepository.save(roomMapper.requestToEntity(room)));
     }
 
     @Override
-    public RoomDTO updateRoom(RoomRequestDTO room, Long id) {
+    public RoomDTO updateRoom(CreateRoomDTO room, Long id) {
         return roomRepository.findById(id)
                 .map(existingRoom -> {
                     RoomDTO updatedRoom = roomMapper.entityToDto(roomRepository.save(roomMapper.requestToEntity(room)));

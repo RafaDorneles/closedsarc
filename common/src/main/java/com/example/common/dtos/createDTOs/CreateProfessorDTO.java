@@ -1,8 +1,4 @@
-package com.example.common.dtos;
-
-import java.util.List;
-
-import com.example.common.dtos.simpleDTOs.SimpleClassroomDTO;
+package com.example.common.dtos.createDTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,10 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProfessorDTO {
-    private Long id;
+public class CreateProfessorDTO {
     private String name;
     private String email;
     private String password;
-    private List<SimpleClassroomDTO> classes;
 }

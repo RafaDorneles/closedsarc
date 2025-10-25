@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.common.models.Equipament;
 import com.example.common.dtos.EquipamentDTO;
-import com.example.common.dtos.requestsDTO.EquipamentRequestDTO;
+import com.example.common.dtos.createDTOs.CreateEquipamentDTO;
 import com.example.datagateway.services.interfaces.IEquipamentService;
 
 @RestController
@@ -42,13 +41,13 @@ public class EquipamentController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<EquipamentDTO> createEquipament(@RequestBody EquipamentRequestDTO equipament) {
+    public ResponseEntity<EquipamentDTO> createEquipament(@RequestBody CreateEquipamentDTO equipament) {
         EquipamentDTO createdEquipament = equipamentService.createEquipament(equipament);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdEquipament);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EquipamentDTO> updateEquipament(@RequestBody EquipamentRequestDTO equipament, @PathVariable Long id) {
+    public ResponseEntity<EquipamentDTO> updateEquipament(@RequestBody CreateEquipamentDTO equipament, @PathVariable Long id) {
         EquipamentDTO updatedEquipament = equipamentService.updateEquipament(equipament, id);
         return ResponseEntity.ok(updatedEquipament);
     }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.common.dtos.RentDTO;
-import com.example.common.dtos.requestsDTO.RentRequestDTO;
+import com.example.common.dtos.createDTOs.CreateRentDTO;
 import com.example.datagateway.services.interfaces.IRentService;
 
 @RestController
@@ -41,13 +41,13 @@ public class RentController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<RentDTO> createRent(@RequestBody RentRequestDTO rent) {
+    public ResponseEntity<RentDTO> createRent(@RequestBody CreateRentDTO rent) {
         RentDTO createdRent = rentService.createRent(rent);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRent);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RentDTO> updateRent(@RequestBody RentRequestDTO rent, @PathVariable Long id) {
+    public ResponseEntity<RentDTO> updateRent(@RequestBody CreateRentDTO rent, @PathVariable Long id) {
         RentDTO updatedRent = rentService.updateRent(rent, id);
         return ResponseEntity.ok(updatedRent);
     }

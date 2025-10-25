@@ -4,6 +4,5 @@ import com.example.common.dtos.RentableDTO;
 import com.example.common.models.Rentable;
 
 public interface IRentableMapper {
-    RentableDTO entityToDto(Rentable rentable);
-    Rentable dtoToEntity(RentableDTO dto);
+    public RentableDTO entityToDto(Rentable rentable);
 }

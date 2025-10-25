@@ -3,7 +3,7 @@ package com.example.common.mappers;
 import org.springframework.stereotype.Component;
 
 import com.example.common.dtos.AdminDTO;
-import com.example.common.dtos.requestsDTO.AdminRequestDTO;
+import com.example.common.dtos.createDTOs.CreateAdminDTO;
 import com.example.common.mappers.interfaces.IAdminMapper;
 import com.example.common.models.Admin;
 
@@ -39,7 +39,7 @@ public class AdminMapper implements IAdminMapper{
     }
 
     @Override
-    public Admin requestToEntity(AdminRequestDTO dto) {
+    public Admin requestToEntity(CreateAdminDTO dto) {
         if (dto == null) {
             return null;
         }

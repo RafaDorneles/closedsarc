@@ -1,4 +1,4 @@
-package com.example.common.dtos.requestsDTO;
+package com.example.common.dtos.simpleDTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoomRequestDTO {
-    private Integer capacity;
-    private Integer number;
+public class SimpleRentableDTO {
+    private Long id;
 }

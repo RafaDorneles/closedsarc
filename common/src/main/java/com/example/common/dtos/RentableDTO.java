@@ -2,10 +2,12 @@ package com.example.common.dtos;
 
 import java.util.List;
 
+import com.example.common.dtos.simpleDTOs.SimpleRentDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -14,5 +16,5 @@ import lombok.NoArgsConstructor;
 public class RentableDTO {
 
     private Long id;
-    private List<RentDTO> rents;
+    private List<SimpleRentDTO> rents;
 }

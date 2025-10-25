@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.common.dtos.RoomDTO;
-import com.example.common.dtos.requestsDTO.RoomRequestDTO;
+import com.example.common.dtos.createDTOs.CreateRoomDTO;
 import com.example.datagateway.services.interfaces.IRoomService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -40,12 +40,12 @@ public class RoomController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<RoomDTO> createRoom(@RequestBody RoomRequestDTO room) {
+    public ResponseEntity<RoomDTO> createRoom(@RequestBody CreateRoomDTO room) {
         return ResponseEntity.ok(roomService.createRoom(room));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RoomDTO> updateRoom(@RequestBody RoomRequestDTO room, @PathVariable Long id) {
+    public ResponseEntity<RoomDTO> updateRoom(@RequestBody CreateRoomDTO room, @PathVariable Long id) {
         return ResponseEntity.ok(roomService.updateRoom(room, id));
     }
 

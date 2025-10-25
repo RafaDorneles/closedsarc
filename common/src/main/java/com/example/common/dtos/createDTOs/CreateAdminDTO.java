@@ -1,4 +1,4 @@
-package com.example.common.dtos.requestsDTO;
+package com.example.common.dtos.createDTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EquipamentRequestDTO {
-    
-    private String name;
+public class CreateAdminDTO {
+
+    private String password;
+    private String email;
 }

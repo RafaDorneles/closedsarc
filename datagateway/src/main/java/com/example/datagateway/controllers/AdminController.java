@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import com.example.common.dtos.AdminDTO;
-import com.example.common.dtos.requestsDTO.AdminRequestDTO;
+import com.example.common.dtos.createDTOs.CreateAdminDTO;
 import com.example.datagateway.services.interfaces.IAdminService;
 
 @RestController
@@ -44,13 +44,13 @@ public class AdminController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<AdminDTO> createAdmin(@RequestBody AdminRequestDTO dto) {
+    public ResponseEntity<AdminDTO> createAdmin(@RequestBody CreateAdminDTO dto) {
         AdminDTO createdAdmin = adminService.createAdmin(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAdmin);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AdminDTO> updateAdmin(@RequestBody AdminRequestDTO dto, @PathVariable Long id) {
+    public ResponseEntity<AdminDTO> updateAdmin(@RequestBody CreateAdminDTO dto, @PathVariable Long id) {
         AdminDTO updatedAdmin = adminService.updateAdmin(dto, id);
         return ResponseEntity.ok(updatedAdmin);
     }

@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.example.common.dtos.RentDTO;
-import com.example.common.dtos.requestsDTO.RentRequestDTO;
+import com.example.common.dtos.createDTOs.CreateRentDTO;
 import com.example.common.exceptions.ApiException;
 import com.example.common.mappers.interfaces.IRentMapper;
 import com.example.common.models.Classroom;
@@ -46,7 +46,7 @@ public class RentService implements IRentService {
     }
 
     @Override
-    public RentDTO createRent(RentRequestDTO rent) {
+    public RentDTO createRent(CreateRentDTO rent) {
         Classroom classroom = classroomRepository.findById(rent.getClassroomId())
                 .orElseThrow(() -> new ApiException("Classroom not found", HttpStatus.NOT_FOUND));
 
@@ -57,7 +57,7 @@ public class RentService implements IRentService {
     }
 
     @Override
-    public RentDTO updateRent(RentRequestDTO rent, Long id) {
+    public RentDTO updateRent(CreateRentDTO rent, Long id) {
         Rent existingRent = rentRepository.findById(id)
                 .orElseThrow(() -> new ApiException("Rent not found", HttpStatus.NOT_FOUND));
 

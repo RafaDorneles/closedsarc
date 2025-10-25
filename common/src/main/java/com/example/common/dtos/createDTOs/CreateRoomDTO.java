@@ -1,8 +1,4 @@
-package com.example.common.dtos;
-
-import java.util.List;
-
-import com.example.common.dtos.simpleDTOs.SimpleRentDTO;
+package com.example.common.dtos.createDTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,10 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoomDTO {
-    private Long id;
+public class CreateRoomDTO {
     private Integer capacity;
     private Integer number;
-    private List<SimpleRentDTO> rents;
-
 }

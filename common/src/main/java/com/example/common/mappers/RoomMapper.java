@@ -1,12 +1,10 @@
 package com.example.common.mappers;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.common.dtos.RoomDTO;
-import com.example.common.dtos.requestsDTO.RoomRequestDTO;
+import com.example.common.dtos.createDTOs.CreateRoomDTO;
 import com.example.common.mappers.interfaces.IRentMapper;
 import com.example.common.mappers.interfaces.IRoomMapper;
 import com.example.common.models.Room;
@@ -28,33 +26,20 @@ public class RoomMapper implements IRoomMapper {
         roomDTO.setCapacity(room.getCapacity());
         roomDTO.setNumber(room.getNumber());
         roomDTO.setRents(room.getRents().stream()
-                .map(rentMapper::entityToDto)
+                .map(rentMapper::entityToSimpleDto)
                 .toList());
         return roomDTO;
     }
 
     @Override
-    public Room dtoToEntity(RoomDTO roomDTO) {
-        if (roomDTO == null) {
+    public Room requestToEntity(CreateRoomDTO createRoomDTO) {
+        if (createRoomDTO == null) {
             return null;
         }
 
         Room room = new Room();
-        room.setId(roomDTO.getId());
-        room.setNumber(roomDTO.getNumber());
-        room.setCapacity(roomDTO.getCapacity());
-        return room;
-    }
-
-    @Override
-    public Room requestToEntity(RoomRequestDTO roomRequestDTO) {
-        if (roomRequestDTO == null) {
-            return null;
-        }
-
-        Room room = new Room();
-        room.setNumber(roomRequestDTO.getNumber());
-        room.setCapacity(roomRequestDTO.getCapacity());
+        room.setNumber(createRoomDTO.getNumber());
+        room.setCapacity(createRoomDTO.getCapacity());
         return room;
     }
     
