@@ -6,7 +6,7 @@ import com.example.common.dtos.ProfessorDTO;
 import com.example.common.dtos.createDTOs.CreateProfessorDTO;
 
 public interface IProfessorService {
-    List<ProfessorDTO> getAllEquipaments();
+    List<ProfessorDTO> getAllProfessors();
     ProfessorDTO getProfessorById(Long id);
     ProfessorDTO createProfessor(CreateProfessorDTO professor);
     ProfessorDTO updateProfessor(CreateProfessorDTO professor, Long id);

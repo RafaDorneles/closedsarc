@@ -18,26 +18,13 @@ public class Room extends Rentable {
     private Integer number;
     private Integer capacity;
 
-    @OneToMany(mappedBy = "rentableItem")
-    private List<Rent> rents;
-
     public Room() {
         super();
-        rents = new ArrayList<>();
     }
 
     public Room(Integer number, Integer capacity) {
         super();
         this.number = number;
         this.capacity = capacity;
-        this.rents = new ArrayList<>();
-    }
-
-    public void addRent(Rent newRent){
-        rents.add(newRent);
-    }
-
-    public void removeRent(Rent removedRent){
-        rents.remove(removedRent);
     }
 }

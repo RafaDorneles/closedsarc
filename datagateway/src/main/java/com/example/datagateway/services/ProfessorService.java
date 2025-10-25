@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 
 import com.example.common.dtos.ProfessorDTO;
 import com.example.common.dtos.createDTOs.CreateProfessorDTO;
@@ -12,6 +13,7 @@ import com.example.common.mappers.interfaces.IProfessorMapper;
 import com.example.datagateway.repositories.IProfessorRepository;
 import com.example.datagateway.services.interfaces.IProfessorService;
 
+@Service
 public class ProfessorService implements IProfessorService {
 
     @Autowired
@@ -21,7 +23,7 @@ public class ProfessorService implements IProfessorService {
     private IProfessorMapper professorMapper;
 
     @Override
-    public List<ProfessorDTO> getAllEquipaments() {
+    public List<ProfessorDTO> getAllProfessors() {
         return professorRepository.findAll().stream().map(professorMapper::entityToDto).toList();
     }
 

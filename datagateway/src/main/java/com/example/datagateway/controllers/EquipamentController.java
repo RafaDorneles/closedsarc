@@ -57,5 +57,4 @@ public class EquipamentController {
         EquipamentDTO deletedEquipament = equipamentService.deleteEquipament(id);
         return ResponseEntity.ok(deletedEquipament);
     }
-
 }

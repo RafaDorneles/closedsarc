@@ -2,6 +2,7 @@ package com.example.common.models;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -24,7 +25,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//Supposed to be Class, but it's a reserved word in Java
 public class Course {
 
     @Id
@@ -46,7 +46,7 @@ public class Course {
     @JoinColumn(name = "professor_id", nullable = false)
     private Professor professor;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rent> rents;
 
     public void addRent(Rent newRent){
