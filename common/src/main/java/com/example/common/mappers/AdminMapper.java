@@ -25,20 +25,6 @@ public class AdminMapper implements IAdminMapper{
     }
 
     @Override
-    public Admin dtoToEntity(AdminDTO dto) {
-        if (dto == null) {
-            return null;
-        }
-
-        Admin admin = new Admin();
-        admin.setId(dto.getId());
-        admin.setPassword(dto.getPassword());
-        admin.setEmail(dto.getEmail());
-
-        return admin;
-    }
-
-    @Override
     public Admin requestToEntity(CreateAdminDTO dto) {
         if (dto == null) {
             return null;

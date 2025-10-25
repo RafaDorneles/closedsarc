@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SimpleRentDTO {
     private Long id;
-    private Long classroomId;
+    private Long courseId;
     private Long rentableItemId;
     private LocalDateTime rentDate;
 }

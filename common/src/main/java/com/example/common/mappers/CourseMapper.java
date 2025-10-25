@@ -4,79 +4,81 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-import com.example.common.dtos.ClassroomDTO;
-import com.example.common.dtos.createDTOs.CreateClassroomDTO;
-import com.example.common.dtos.simpleDTOs.SimpleClassroomDTO;
+import com.example.common.dtos.CourseDTO;
+import com.example.common.dtos.createDTOs.CreateCourseDTO;
+import com.example.common.dtos.simpleDTOs.SimpleCourseDTO;
 import com.example.common.dtos.simpleDTOs.SimpleProfessorDTO;
 import com.example.common.exceptions.ApiException;
-import com.example.common.mappers.interfaces.IClassroomMapper;
+import com.example.common.mappers.interfaces.ICourseMapper;
 import com.example.common.mappers.interfaces.IRentMapper;
-import com.example.common.models.Classroom;
+import com.example.common.models.Course;
 import com.example.common.models.Day;
 import com.example.common.models.Period;
 
 @Component
-public class ClassroomMapper implements IClassroomMapper {
+public class CourseMapper implements ICourseMapper {
 
     @Autowired
     private IRentMapper rentMapper;
     
     @Override
-    public ClassroomDTO entityToDto(Classroom classroom) {
-        if (classroom == null) {
+    public CourseDTO entityToDto(Course course) {
+        if (course == null) {
             return null;
         }
 
-        ClassroomDTO dto = new ClassroomDTO();
-        dto.setId(classroom.getId());
-        dto.setNumberOfStudents(classroom.getNumberOfStudents());
-        dto.setSubject(classroom.getSubject());
-        dto.setPeriods(classroom.getPeriods().stream()
+        CourseDTO dto = new CourseDTO();
+        
+        SimpleProfessorDTO simpleProfessor = new SimpleProfessorDTO();
+        simpleProfessor.setId(course.getProfessor().getId());
+        simpleProfessor.setEmail(course.getProfessor().getEmail());
+        simpleProfessor.setName(course.getProfessor().getName());
+        
+        dto.setId(course.getId());
+        dto.setNumberOfStudents(course.getNumberOfStudents());
+        dto.setSubject(course.getSubject());
+        dto.setPeriods(course.getPeriods().stream()
                     .map(Period::name)
                     .toList());
-        dto.setDays(classroom.getDays().stream()
+        dto.setDays(course.getDays().stream()
                     .map(Day::name)
                     .toList());
-
-        SimpleProfessorDTO simpleProfessor = new SimpleProfessorDTO();
-        simpleProfessor.setId(classroom.getProfessor().getId());
-        simpleProfessor.setName(classroom.getProfessor().getName());
         dto.setProfessor(simpleProfessor);
-        dto.setRents(classroom.getRents().stream()
-                    .map(rentMapper::entityToSimpleDto)
+        dto.setRents(course.getRents().stream()
+                    .map(rentMapper::entityToDto)
                     .toList());
 
         return dto;
     }
 
     @Override
-    public Classroom requestToEntity(CreateClassroomDTO roomRequestDTO) {
+    public Course requestToEntity(CreateCourseDTO roomRequestDTO) {
         if (roomRequestDTO == null) {
             return null;
         }
 
-        Classroom classroom = new Classroom();
-        classroom.setNumberOfStudents(roomRequestDTO.getNumberOfStudents());
-        classroom.setSubject(roomRequestDTO.getSubject());
-        classroom.setPeriods(roomRequestDTO.getPeriods().stream()
+        Course course = new Course();
+        course.setNumberOfStudents(roomRequestDTO.getNumberOfStudents());
+        course.setSubject(roomRequestDTO.getSubject());
+        course.setPeriods(roomRequestDTO.getPeriods().stream()
                     .map(periodStr -> stringToPeriod(periodStr))
                     .toList());
-        classroom.setDays(roomRequestDTO.getDays().stream()
+        course.setDays(roomRequestDTO.getDays().stream()
                     .map(dayStr -> stringToDay(dayStr))
                     .toList());
 
-        return classroom;
+        return course;
     }
 
     @Override
-    public SimpleClassroomDTO entityToSimpleDto(Classroom classroom) {
-        if (classroom == null) {
+    public SimpleCourseDTO entityToSimpleDto(Course course) {
+        if (course == null) {
             return null;
         }
-        SimpleClassroomDTO dto = new SimpleClassroomDTO();
-        dto.setId(classroom.getId());
-        dto.setSubject(classroom.getSubject());
-        dto.setPeriods(classroom.getPeriods().stream()
+        SimpleCourseDTO dto = new SimpleCourseDTO();
+        dto.setId(course.getId());
+        dto.setSubject(course.getSubject());
+        dto.setPeriods(course.getPeriods().stream()
                         .map(Period::name)
                         .toList());
         return dto;

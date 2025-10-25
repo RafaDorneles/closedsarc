@@ -2,7 +2,7 @@ package com.example.common.dtos;
 
 import java.util.List;
 
-import com.example.common.dtos.simpleDTOs.SimpleClassroomDTO;
+import com.example.common.dtos.simpleDTOs.SimpleCourseDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,5 +18,5 @@ public class ProfessorDTO {
     private String name;
     private String email;
     private String password;
-    private List<SimpleClassroomDTO> classes;
+    private List<SimpleCourseDTO> classes;
 }

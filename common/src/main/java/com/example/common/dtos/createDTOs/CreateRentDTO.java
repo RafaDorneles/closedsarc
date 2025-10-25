@@ -10,6 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateRentDTO {
-    private Long classroomId;
+    private Long courseId;
     private Long rentableItemId;
 }

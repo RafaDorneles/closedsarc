@@ -6,6 +6,5 @@ import com.example.common.models.Admin;
 
 public interface IAdminMapper {
     public AdminDTO entityToDto(Admin admin);
-    public Admin dtoToEntity(AdminDTO adminDTO);
     public Admin requestToEntity(CreateAdminDTO createAdminDTO);
 }

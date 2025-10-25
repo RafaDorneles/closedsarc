@@ -10,10 +10,10 @@ import com.example.common.dtos.RentDTO;
 import com.example.common.dtos.createDTOs.CreateRentDTO;
 import com.example.common.exceptions.ApiException;
 import com.example.common.mappers.interfaces.IRentMapper;
-import com.example.common.models.Classroom;
+import com.example.common.models.Course;
 import com.example.common.models.Rent;
 import com.example.common.models.Rentable;
-import com.example.datagateway.repositories.IClassroomRepository;
+import com.example.datagateway.repositories.ICourseRepository;
 import com.example.datagateway.repositories.IRentRepository;
 import com.example.datagateway.repositories.IRentableRepository;
 import com.example.datagateway.services.interfaces.IRentService;
@@ -28,7 +28,7 @@ public class RentService implements IRentService {
     private IRentMapper rentMapper;
 
     @Autowired
-    private IClassroomRepository classroomRepository;
+    private ICourseRepository courseRepository;
 
     @Autowired
     private IRentableRepository rentableRepository;
@@ -47,13 +47,17 @@ public class RentService implements IRentService {
 
     @Override
     public RentDTO createRent(CreateRentDTO rent) {
-        Classroom classroom = classroomRepository.findById(rent.getClassroomId())
-                .orElseThrow(() -> new ApiException("Classroom not found", HttpStatus.NOT_FOUND));
+        Course course = courseRepository.findById(rent.getCourseId())
+                .orElseThrow(() -> new ApiException("Course not found", HttpStatus.NOT_FOUND));
 
         Rentable rentableItem = rentableRepository.findById(rent.getRentableItemId())
                 .orElseThrow(() -> new ApiException("Rentable item not found", HttpStatus.NOT_FOUND));
 
-        return rentMapper.entityToDto(rentRepository.save(rentMapper.requestToEntity(classroom, rentableItem)));
+        Rent newRent = rentMapper.requestToEntity(course, rentableItem);
+        course.addRent(newRent);
+        rentableItem.addRent(newRent);
+
+        return rentMapper.entityToDto(rentRepository.save(newRent));
     }
 
     @Override
@@ -61,14 +65,19 @@ public class RentService implements IRentService {
         Rent existingRent = rentRepository.findById(id)
                 .orElseThrow(() -> new ApiException("Rent not found", HttpStatus.NOT_FOUND));
 
-        Classroom classroom = classroomRepository.findById(rent.getClassroomId())
-                .orElseThrow(() -> new ApiException("Classroom not found", HttpStatus.NOT_FOUND));
+        Course oldCourse = existingRent.getCourse();
+        Rentable oldRentable = existingRent.getRentableItem();
 
-        Rentable rentableItem = rentableRepository.findById(rent.getRentableItemId())
+        Course newCourse = courseRepository.findById(rent.getCourseId())
+                .orElseThrow(() -> new ApiException("Course not found", HttpStatus.NOT_FOUND));
+
+        Rentable newRentable = rentableRepository.findById(rent.getRentableItemId())
                 .orElseThrow(() -> new ApiException("Rentable item not found", HttpStatus.NOT_FOUND));
         
-        existingRent.setClassroom(classroom);
-        existingRent.setRentableItem(rentableItem);
+        oldCourse.removeRent(existingRent);
+        oldRentable.removeRent(existingRent);
+        newCourse.addRent(existingRent);
+        newRentable.addRent(existingRent);
         return rentMapper.entityToDto(rentRepository.save(existingRent));
     }
 
@@ -77,6 +86,9 @@ public class RentService implements IRentService {
         Rent rent = rentRepository.findById(id)
                 .orElseThrow(() -> new ApiException("Rent not found", HttpStatus.NOT_FOUND));
         rentRepository.delete(rent);
+
+        rent.getCourse().removeRent(rent);
+        rent.getRentableItem().removeRent(rent);
         return rentMapper.entityToDto(rent);
     }
 }

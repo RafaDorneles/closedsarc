@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateClassroomDTO {
+public class CreateCourseDTO {
     private Integer numberOfStudents;
     private String subject;
     private List<String> periods;

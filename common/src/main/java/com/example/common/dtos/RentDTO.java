@@ -2,7 +2,7 @@ package com.example.common.dtos;
 
 import java.time.LocalDateTime;
 
-import com.example.common.dtos.simpleDTOs.SimpleClassroomDTO;
+import com.example.common.dtos.simpleDTOs.SimpleCourseDTO;
 import com.example.common.dtos.simpleDTOs.SimpleRentableDTO;
 
 import lombok.AllArgsConstructor;
@@ -16,7 +16,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RentDTO {
     private Long id;
-    private SimpleClassroomDTO classroom;
+    private SimpleCourseDTO course;
     private SimpleRentableDTO rentableItem;
     private LocalDateTime rentDate;
 }

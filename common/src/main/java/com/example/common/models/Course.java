@@ -2,8 +2,6 @@ package com.example.common.models;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -27,7 +25,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 //Supposed to be Class, but it's a reserved word in Java
-public class Classroom {
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +46,15 @@ public class Classroom {
     @JoinColumn(name = "professor_id", nullable = false)
     private Professor professor;
 
-    @OneToMany(mappedBy = "classroom")
+    @OneToMany(mappedBy = "course")
     private List<Rent> rents;
+
+    public void addRent(Rent newRent){
+        rents.add(newRent);
+    }
+
+    public void removeRent(Rent removedRent){
+        rents.remove(removedRent);
+    }
 
 }

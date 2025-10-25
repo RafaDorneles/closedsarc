@@ -1,7 +1,5 @@
 package com.example.common.dtos;
 
-import com.example.common.models.Admin;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -32,4 +32,12 @@ public class Room extends Rentable {
         this.capacity = capacity;
         this.rents = new ArrayList<>();
     }
+
+    public void addRent(Rent newRent){
+        rents.add(newRent);
+    }
+
+    public void removeRent(Rent removedRent){
+        rents.remove(removedRent);
+    }
 }

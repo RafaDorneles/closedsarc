@@ -36,6 +36,13 @@ public class Professor {
     private String password;
 
     @OneToMany(mappedBy = "professor")
-    private List<Classroom> classes;
+    private List<Course> courses;
 
+    public void addClass(Course newClass){
+        courses.add(newClass);
+    }
+
+    public void removeClass(Course removedClass){
+        courses.remove(removedClass);
+    }
 }

@@ -33,4 +33,11 @@ public abstract class Rentable {
         this.rents = new ArrayList<>();
     }
 
+    public void addRent(Rent newRent){
+        rents.add(newRent);
+    }
+
+    public void removeRent(Rent removedRent){
+        rents.remove(removedRent);
+    }
 }
