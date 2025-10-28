@@ -53,7 +53,7 @@ public class RentService implements IRentService {
         Rentable rentableItem = rentableRepository.findById(rent.getRentableItemId())
                 .orElseThrow(() -> new ApiException("Rentable item not found", HttpStatus.NOT_FOUND));
 
-        Rent newRent = rentMapper.requestToEntity(course, rentableItem);
+        Rent newRent = rentMapper.requestToEntity(course, rentableItem, rent);
         course.addRent(newRent);
         rentableItem.addRent(newRent);
 

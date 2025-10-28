@@ -18,7 +18,7 @@ import com.example.common.dtos.createDTOs.CreateAdminDTO;
 import com.example.datagateway.services.interfaces.IAdminService;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admins")
 public class AdminController {
 
     @Autowired

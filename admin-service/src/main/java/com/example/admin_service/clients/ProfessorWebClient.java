@@ -6,24 +6,24 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
-import com.example.common.dtos.CourseDTO;
-import com.example.common.dtos.createDTOs.CreateCourseDTO;
+import com.example.common.dtos.ProfessorDTO;
+import com.example.common.dtos.createDTOs.CreateProfessorDTO;
 import com.example.common.exceptions.ApiException;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Component
-public class CourseWebClient {
+public class ProfessorWebClient {
     
     @Autowired
     private WebClient webClient;
 
-    public Flux<CourseDTO> getAllCourses() {
+    public Flux<ProfessorDTO> getAllProfessors() {
         return webClient.get()
-                .uri("/courses")
+                .uri("/professors")
                 .retrieve()
-                .bodyToFlux(CourseDTO.class)
+                .bodyToFlux(ProfessorDTO.class)
                 .onErrorResume(WebClientResponseException.class, ex -> {
                     if (ex.getStatusCode() == HttpStatus.NOT_FOUND)
                         return Flux.empty();
@@ -31,28 +31,28 @@ public class CourseWebClient {
                 });
     }
 
-    public Mono<CourseDTO> getCourseById(Long id) {
+    public Mono<ProfessorDTO> getProfessorById(Long id) {
         return webClient.get()
-                .uri("/courses/{id}", id)
+                .uri("/professors/{id}", id)
                 .retrieve()
-                .bodyToMono(CourseDTO.class)
+                .bodyToMono(ProfessorDTO.class)
                 .onErrorResume(WebClientResponseException.class, ex ->
-                        Mono.error(new ApiException("Error while getting course", HttpStatus.NOT_FOUND))
+                        Mono.error(new ApiException("Error while getting professor", HttpStatus.NOT_FOUND))
                 );
     }
 
-    public Mono<CourseDTO> createCourse(CreateCourseDTO dto) {
+    public Mono<ProfessorDTO> createProfessor(CreateProfessorDTO dto) {
         return webClient.post()
-                .uri("/courses")
+                .uri("/professors")
                 .bodyValue(dto)
                 .retrieve()
-                .bodyToMono(CourseDTO.class);
+                .bodyToMono(ProfessorDTO.class);
     }
 
-    public Mono<CourseDTO> deleteCourse(Long id) {
+    public Mono<ProfessorDTO> deleteProfessor(Long id) {
         return webClient.delete()
-                .uri("/courses/{id}", id)
+                .uri("/professors/{id}", id)
                 .retrieve()
-                .bodyToMono(CourseDTO.class);
+                .bodyToMono(ProfessorDTO.class);
     }
 }

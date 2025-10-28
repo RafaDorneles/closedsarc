@@ -19,7 +19,7 @@ import com.example.common.dtos.createDTOs.CreateRentDTO;
 import com.example.datagateway.services.interfaces.IRentService;
 
 @RestController
-@RequestMapping("/rent")
+@RequestMapping("/rents")
 public class RentController {
 
     @Autowired

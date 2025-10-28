@@ -1,17 +1,14 @@
 package com.example.common.mappers;
 
-import java.time.LocalDateTime;
-
 import org.springframework.stereotype.Component;
 
 import com.example.common.dtos.RentDTO;
+import com.example.common.dtos.createDTOs.CreateRentDTO;
 import com.example.common.dtos.simpleDTOs.SimpleCourseDTO;
 import com.example.common.dtos.simpleDTOs.SimpleRentDTO;
 import com.example.common.dtos.simpleDTOs.SimpleRentableDTO;
 import com.example.common.mappers.interfaces.IRentMapper;
 import com.example.common.models.Course;
-import com.example.common.models.Day;
-import com.example.common.models.Period;
 import com.example.common.models.Rent;
 import com.example.common.models.Rentable;
 
@@ -28,12 +25,8 @@ public class RentMapper implements IRentMapper{
         course.setId(rent.getCourse().getId());
         course.setNumberOfStudents(rent.getCourse().getNumberOfStudents());
         course.setSubject(rent.getCourse().getSubject());
-        course.setPeriods(rent.getCourse().getPeriods().stream()
-                                .map(Period::name)
-                                .toList());
-        course.setDays(rent.getCourse().getDays().stream()
-                            .map(Day::name)
-                            .toList());
+        course.setPeriods(rent.getCourse().getPeriods());
+        course.setDays(rent.getCourse().getDays());
         
         SimpleRentableDTO rentableItem = new SimpleRentableDTO();
         rentableItem.setId(rent.getRentableItem().getId());
@@ -42,13 +35,14 @@ public class RentMapper implements IRentMapper{
         dto.setId(rent.getId());            
         dto.setCourse(course);
         dto.setRentableItem(rentableItem);
-        dto.setRentDate(rent.getRentDate());
+        dto.setInitialRentDate(rent.getInitialRentDate());
+        dto.setFinalRentDate(rent.getFinalRentDate());
         
         return dto;
     }
 
     @Override
-    public Rent requestToEntity(Course course, Rentable rentableItem) {
+    public Rent requestToEntity(Course course, Rentable rentableItem, CreateRentDTO dto) {
         if (course == null || rentableItem == null) {
             return null;
         }
@@ -56,7 +50,8 @@ public class RentMapper implements IRentMapper{
         Rent rent = new Rent();
         rent.setCourse(course);
         rent.setRentableItem(rentableItem);
-        rent.setRentDate(LocalDateTime.now());
+        rent.setInitialRentDate(dto.getInitialRentDate());
+        rent.setFinalRentDate(dto.getFinalRentDate());
         return rent;
 
     }
@@ -71,7 +66,8 @@ public class RentMapper implements IRentMapper{
         dto.setId(rent.getId());
         dto.setCourseId(rent.getCourse().getId());
         dto.setRentableItemId(rent.getRentableItem().getId());
-        dto.setRentDate(rent.getRentDate());
+        dto.setInitialRentDate(rent.getInitialRentDate());
+        dto.setFinalRentDate(rent.getFinalRentDate());
 
         return dto;
     }
@@ -86,7 +82,8 @@ public class RentMapper implements IRentMapper{
         simpleRent.setId(dto.getId());
         simpleRent.setCourseId(dto.getCourse().getId());
         simpleRent.setRentableItemId(dto.getRentableItem().getId());
-        simpleRent.setRentDate(dto.getRentDate());
+        simpleRent.setInitialRentDate(dto.getInitialRentDate());
+        simpleRent.setFinalRentDate(dto.getFinalRentDate());
 
         return simpleRent;
     }

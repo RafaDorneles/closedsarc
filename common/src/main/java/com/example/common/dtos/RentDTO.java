@@ -18,5 +18,6 @@ public class RentDTO {
     private Long id;
     private SimpleCourseDTO course;
     private SimpleRentableDTO rentableItem;
-    private LocalDateTime rentDate;
+    private LocalDateTime initialRentDate;
+    private LocalDateTime finalRentDate;
 }

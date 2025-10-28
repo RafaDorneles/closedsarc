@@ -36,14 +36,12 @@ public class Course {
     @Column(nullable = false)
     private String subject;
 
-    @Enumerated(EnumType.STRING)
-    private List<Period> periods;
+    private List<String> periods;
 
-    @Enumerated(EnumType.STRING)
-    private List<Day> days;
+    private List<String> days;
 
     @ManyToOne
-    @JoinColumn(name = "professor_id", nullable = false)
+    @JoinColumn(name = "professor_id", nullable = true)
     private Professor professor;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -56,5 +54,4 @@ public class Course {
     public void removeRent(Rent removedRent){
         rents.remove(removedRent);
     }
-
 }

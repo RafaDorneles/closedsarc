@@ -19,7 +19,7 @@ import com.example.datagateway.services.interfaces.IRoomService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
-@RequestMapping("/room")
+@RequestMapping("/rooms")
 public class RoomController {
     
     @Autowired

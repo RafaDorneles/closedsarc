@@ -19,7 +19,7 @@ import com.example.common.dtos.createDTOs.CreateEquipamentDTO;
 import com.example.datagateway.services.interfaces.IEquipamentService;
 
 @RestController
-@RequestMapping("/equipament")
+@RequestMapping("/equipaments")
 public class EquipamentController {
     
     @Autowired
