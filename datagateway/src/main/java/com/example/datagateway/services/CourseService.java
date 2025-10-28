@@ -13,6 +13,7 @@ import com.example.common.models.Course;
 import com.example.datagateway.repositories.ICourseRepository;
 import com.example.datagateway.services.interfaces.ICourseService;
 
+@Service
 public class CourseService implements ICourseService {
 
     @Autowired
