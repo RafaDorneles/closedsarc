@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.example.common.dtos.CourseDTO;
-import com.example.common.dtos.ProfessorDTO;
 import com.example.common.dtos.createDTOs.CreateCourseDTO;
 import com.example.common.exceptions.ApiException;
 import com.example.common.mappers.interfaces.ICourseMapper;
