@@ -3,7 +3,7 @@ package com.example.datagateway;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootApplication(scanBasePackages = {
     "com.example.datagateway",
@@ -12,9 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan(basePackages = {
     "com.example.common.models"
 })
-@EnableJpaRepositories(basePackages = {
-    "com.example.datagateway.repositories"
-})
+@RequestMapping("/data")
 public class DatagatewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(DatagatewayApplication.class, args);

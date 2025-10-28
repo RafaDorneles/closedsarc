@@ -1,4 +1,4 @@
-package com.example.common.dtos;
+package com.example.common.dtos.createDTOs;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdminDTO {
-    private Long id;
-    private String password;
-    private String email;
+public class CreateRoomDTO {
+    private Integer capacity;
+    private Integer number;
 }

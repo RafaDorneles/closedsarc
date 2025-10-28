@@ -1,0 +1,7 @@
+package com.example.datagateway.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.common.models.Course;
+
+public interface ICourseRepository extends JpaRepository<Course, Long> {
+}

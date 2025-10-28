@@ -1,13 +1,14 @@
 package com.example.common.models;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,34 +16,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "professors")
+@Table(name = "rents")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Professor {
+public class Rent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "course_id", nullable = false)
+    private Course course;
+    
+    @ManyToOne
+    @JoinColumn(name = "rentable_id", nullable = false)
+    private Rentable rentableItem;
+
     @Column(nullable = false)
-    private String name;
+    private LocalDateTime rentDate;
 
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @Column(nullable = false)
-    private String password;
-
-    @OneToMany(mappedBy = "professor")
-    private List<Course> courses;
-
-    public void addClass(Course newClass){
-        courses.add(newClass);
-    }
-
-    public void removeClass(Course removedClass){
-        courses.remove(removedClass);
-    }
 }

@@ -1,0 +1,10 @@
+package com.example.common.mappers.interfaces;
+
+import com.example.common.dtos.AdminDTO;
+import com.example.common.dtos.createDTOs.CreateAdminDTO;
+import com.example.common.models.Admin;
+
+public interface IAdminMapper {
+    public AdminDTO entityToDto(Admin admin);
+    public Admin requestToEntity(CreateAdminDTO createAdminDTO);
+}
