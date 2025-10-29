@@ -1,13 +1,11 @@
 package com.example.admin_service.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.example.admin_service.clients.CourseWebClient;
 import com.example.common.dtos.CourseDTO;
 import com.example.common.dtos.createDTOs.CreateCourseDTO;
-import com.example.common.exceptions.ApiException;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -30,9 +28,15 @@ public class CourseService {
         return courseWebClient.createCourse(dto);
     }
 
+    public Mono<CourseDTO> updateCourse(Long id, CreateCourseDTO dto){
+        return courseWebClient.updateCourse(id, dto);
+    }
+
     public Mono<CourseDTO> deleteCourse(Long id) {
         return courseWebClient.deleteCourse(id);
     }
 
-    
+    public Mono<CourseDTO> assignProfessorToCourse(Long professorId, Long courseId){
+        return courseWebClient.assignProfessorToCourse(professorId, courseId);
+    }
 }

@@ -49,9 +49,24 @@ public class CourseWebClient {
                 .bodyToMono(CourseDTO.class);
     }
 
+    public Mono<CourseDTO> updateCourse(Long id, CreateCourseDTO dto) {
+        return webClient.put()
+                .uri("/courses/{id}", id)
+                .bodyValue(dto)
+                .retrieve()
+                .bodyToMono(CourseDTO.class);
+    }
+
     public Mono<CourseDTO> deleteCourse(Long id) {
         return webClient.delete()
                 .uri("/courses/{id}", id)
+                .retrieve()
+                .bodyToMono(CourseDTO.class);
+    }
+
+    public Mono<CourseDTO> assignProfessorToCourse(Long professorId, Long courseId){
+        return webClient.put()
+                .uri("/courses/{courseId}/professor/{professorId}")
                 .retrieve()
                 .bodyToMono(CourseDTO.class);
     }
