@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import com.example.admin_service.exceptions.RemoteApiException;
 import com.example.common.dtos.ProfessorDTO;
@@ -44,6 +43,14 @@ public class ProfessorWebClient {
     public Mono<ProfessorDTO> createProfessor(CreateProfessorDTO dto) {
         return webClient.post()
                 .uri("/professors/")
+                .bodyValue(dto)
+                .retrieve()
+                .bodyToMono(ProfessorDTO.class);
+    }
+
+    public Mono<ProfessorDTO> updateProfessor(Long id, CreateProfessorDTO dto) {
+        return webClient.put()
+                .uri("/professors/{id}", id)
                 .bodyValue(dto)
                 .retrieve()
                 .bodyToMono(ProfessorDTO.class);
