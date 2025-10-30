@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
+import com.example.admin_service.exceptions.RemoteApiException;
 import com.example.common.dtos.RoomDTO;
 import com.example.common.dtos.createDTOs.CreateRoomDTO;
-import com.example.common.exceptions.ApiException;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -21,29 +21,29 @@ public class RoomWebClient {
 
     public Flux<RoomDTO> getAllRooms() {
         return webClient.get()
-                .uri("/rooms")
+                .uri("/rooms/")
                 .retrieve()
-                .bodyToFlux(RoomDTO.class)
-                .onErrorResume(WebClientResponseException.class, ex -> {
-                    if (ex.getStatusCode() == HttpStatus.NOT_FOUND)
-                        return Flux.empty();
-                    return Flux.error(ex);
-                });
+                .onStatus(status -> status.isError(), response -> 
+                    response.bodyToMono(String.class)
+                            .flatMap(body -> Mono.error(new RemoteApiException(body, HttpStatus.valueOf(response.statusCode().value()))))
+                )
+                .bodyToFlux(RoomDTO.class);
     }
 
     public Mono<RoomDTO> getRoomById(Long id) {
         return webClient.get()
                 .uri("/rooms/{id}", id)
                 .retrieve()
-                .bodyToMono(RoomDTO.class)
-                .onErrorResume(WebClientResponseException.class, ex ->
-                        Mono.error(new ApiException("Error while getting room", HttpStatus.NOT_FOUND))
-                );
+                .onStatus(status -> status.isError(), response -> 
+                    response.bodyToMono(String.class)
+                            .flatMap(body -> Mono.error(new RemoteApiException(body, HttpStatus.valueOf(response.statusCode().value()))))
+                )
+                .bodyToMono(RoomDTO.class);
     }
 
     public Mono<RoomDTO> createRoom(CreateRoomDTO dto) {
         return webClient.post()
-                .uri("/rooms")
+                .uri("/rooms/")
                 .bodyValue(dto)
                 .retrieve()
                 .bodyToMono(RoomDTO.class);

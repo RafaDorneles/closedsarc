@@ -1,4 +1,4 @@
-package com.example.common.exceptions;
+package com.example.datagateway.exceptions;
 
 import org.springframework.http.HttpStatus;
 

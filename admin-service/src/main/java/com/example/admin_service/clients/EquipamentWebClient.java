@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
+import com.example.admin_service.exceptions.RemoteApiException;
 import com.example.common.dtos.EquipamentDTO;
 import com.example.common.dtos.createDTOs.CreateEquipamentDTO;
-import com.example.common.exceptions.ApiException;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -21,29 +21,29 @@ public class EquipamentWebClient {
 
     public Flux<EquipamentDTO> getAllEquipaments() {
         return webClient.get()
-                .uri("/equipaments")
+                .uri("/equipaments/")
                 .retrieve()
-                .bodyToFlux(EquipamentDTO.class)
-                .onErrorResume(WebClientResponseException.class, ex -> {
-                    if (ex.getStatusCode() == HttpStatus.NOT_FOUND)
-                        return Flux.empty();
-                    return Flux.error(ex);
-                });
+                .onStatus(status -> status.isError(), response -> 
+                    response.bodyToMono(String.class)
+                            .flatMap(body -> Mono.error(new RemoteApiException(body, HttpStatus.valueOf(response.statusCode().value()))))
+                )
+                .bodyToFlux(EquipamentDTO.class);
     }
 
     public Mono<EquipamentDTO> getEquipamentById(Long id) {
         return webClient.get()
                 .uri("/equipaments/{id}", id)
                 .retrieve()
-                .bodyToMono(EquipamentDTO.class)
-                .onErrorResume(WebClientResponseException.class, ex ->
-                        Mono.error(new ApiException("Error while getting equipament", HttpStatus.NOT_FOUND))
-                );
+                .onStatus(status -> status.isError(), response -> 
+                    response.bodyToMono(String.class)
+                            .flatMap(body -> Mono.error(new RemoteApiException(body, HttpStatus.valueOf(response.statusCode().value()))))
+                )
+                .bodyToMono(EquipamentDTO.class);
     }
 
     public Mono<EquipamentDTO> createEquipament(CreateEquipamentDTO dto) {
         return webClient.post()
-                .uri("/equipaments")
+                .uri("/equipaments/")
                 .bodyValue(dto)
                 .retrieve()
                 .bodyToMono(EquipamentDTO.class);

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.common.dtos.EquipamentDTO;
 import com.example.common.dtos.createDTOs.CreateEquipamentDTO;
-import com.example.common.exceptions.ApiException;
+import com.example.datagateway.exceptions.ApiException;
 import com.example.common.mappers.interfaces.IEquipamentMapper;
 import com.example.common.models.Equipament;
 import com.example.datagateway.repositories.IEquipamentRepository;

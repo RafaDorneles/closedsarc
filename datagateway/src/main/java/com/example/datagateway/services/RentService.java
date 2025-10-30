@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.common.dtos.RentDTO;
 import com.example.common.dtos.createDTOs.CreateRentDTO;
-import com.example.common.exceptions.ApiException;
+import com.example.datagateway.exceptions.ApiException;
 import com.example.common.mappers.interfaces.IRentMapper;
 import com.example.common.models.Course;
 import com.example.common.models.Rent;

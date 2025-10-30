@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
+import com.example.admin_service.exceptions.RemoteApiException;
 import com.example.common.dtos.CourseDTO;
 import com.example.common.dtos.createDTOs.CreateCourseDTO;
-import com.example.common.exceptions.ApiException;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -21,29 +21,29 @@ public class CourseWebClient {
 
     public Flux<CourseDTO> getAllCourses() {
         return webClient.get()
-                .uri("/courses")
+                .uri("/courses/")
                 .retrieve()
-                .bodyToFlux(CourseDTO.class)
-                .onErrorResume(WebClientResponseException.class, ex -> {
-                    if (ex.getStatusCode() == HttpStatus.NOT_FOUND)
-                        return Flux.empty();
-                    return Flux.error(ex);
-                });
+                .onStatus(status -> status.isError(), response -> 
+                    response.bodyToMono(String.class)
+                            .flatMap(body -> Mono.error(new RemoteApiException(body, HttpStatus.valueOf(response.statusCode().value()))))
+                )
+                .bodyToFlux(CourseDTO.class);
     }
 
     public Mono<CourseDTO> getCourseById(Long id) {
         return webClient.get()
                 .uri("/courses/{id}", id)
                 .retrieve()
-                .bodyToMono(CourseDTO.class)
-                .onErrorResume(WebClientResponseException.class, ex ->
-                        Mono.error(new ApiException("Error while getting course", HttpStatus.NOT_FOUND))
-                );
+                .onStatus(status -> status.isError(), response -> 
+                    response.bodyToMono(String.class)
+                            .flatMap(body -> Mono.error(new RemoteApiException(body, HttpStatus.valueOf(response.statusCode().value()))))
+                )
+                .bodyToMono(CourseDTO.class);
     }
 
     public Mono<CourseDTO> createCourse(CreateCourseDTO dto) {
         return webClient.post()
-                .uri("/courses")
+                .uri("/courses/")
                 .bodyValue(dto)
                 .retrieve()
                 .bodyToMono(CourseDTO.class);
