@@ -1,4 +1,4 @@
-package com.example.admin_service;
+package com.example.admin_service.exceptions;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.example.admin_service.exceptions.RemoteApiException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
