@@ -29,6 +29,10 @@ public class RentService {
     }
 
     public Mono<RentDTO> createRent(CreateRentDTO dto) {
+        if (dto.getFinalRentDate().isBefore(dto.getInitialRentDate())) {
+            return Mono.error(new ApiException("Final rent date is before initial rent date", HttpStatus.BAD_REQUEST));
+        }
+        
         return rentWebClient.getAllRents()
                 .filter(rent -> rent.getRentableItem().getId().equals(dto.getRentableItemId()))
                 .filter(rent -> overlaps(rent.getInitialRentDate(), rent.getFinalRentDate(), dto.getInitialRentDate(), dto.getFinalRentDate()))
@@ -37,14 +41,16 @@ public class RentService {
                     if (conflictExists) {
                         return Mono.error(new ApiException("Equipment already rented during this period.", HttpStatus.CONFLICT));
                     } 
-                    if(dto.getFinalRentDate().isBefore(dto.getInitialRentDate())){
-                        return Mono.error(new ApiException("Final rent date is before then initial rent date", HttpStatus.BAD_REQUEST));
-                    }
+
                     return rentWebClient.createRent(dto);
                 });
     }
 
     public Mono<RentDTO> updateRent(Long id, CreateRentDTO dto){
+        if (dto.getFinalRentDate().isBefore(dto.getInitialRentDate())) {
+            return Mono.error(new ApiException("Final rent date is before initial rent date", HttpStatus.BAD_REQUEST));
+        }
+
         return rentWebClient.getRentById(id)
                 .filter(rent -> overlaps(rent.getInitialRentDate(), rent.getFinalRentDate(), dto.getInitialRentDate(), dto.getFinalRentDate()))
                 .hasElement()
