@@ -36,9 +36,11 @@ public class RentService {
                 .flatMap(conflictExists -> {
                     if (conflictExists) {
                         return Mono.error(new ApiException("Equipment already rented during this period.", HttpStatus.CONFLICT));
-                    } else {
-                        return rentWebClient.createRent(dto);
+                    } 
+                    if(dto.getFinalRentDate().isBefore(dto.getInitialRentDate())){
+                        return Mono.error(new ApiException("Final rent date is before then initial rent date", HttpStatus.BAD_REQUEST));
                     }
+                    return rentWebClient.createRent(dto);
                 });
     }
 
@@ -60,6 +62,8 @@ public class RentService {
     }
 
     private boolean overlaps(LocalDateTime start1, LocalDateTime end1, LocalDateTime start2, LocalDateTime end2) {
-        return start1.isBefore(end2) && start2.isBefore(end1);
+        if(start1.isBefore(end2) && start2.isBefore(end1)) return true;
+        if(start1.equals(start2) || end1.equals(end2)) return true;
+        return false;
     }
 }
