@@ -51,4 +51,10 @@ public class CourseController {
     public Mono<CourseDTO> deleteCourse(@PathVariable Long id) {
         return courseService.deleteCourse(id);
     }
+
+    @PostMapping("/{professorId}/course/{courseId}")
+    public Mono<CourseDTO> assignProfessorToCourse(@PathVariable Long professorId, @PathVariable Long courseId) {
+        return courseService.assignProfessorToCourse(professorId, courseId);
+    }
+    
 }
