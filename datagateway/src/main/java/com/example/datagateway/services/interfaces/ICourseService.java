@@ -11,4 +11,5 @@ public interface ICourseService {
     CourseDTO createCourse(CreateCourseDTO dto);
     CourseDTO updateCourse(CreateCourseDTO dto, Long id);
     CourseDTO deleteCourse(Long id);
+    CourseDTO assignProfessorToCourse(Long professorId, Long courseId);
 }

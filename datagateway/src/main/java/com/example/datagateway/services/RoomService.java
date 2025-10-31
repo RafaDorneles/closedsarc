@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.common.dtos.RoomDTO;
 import com.example.common.dtos.createDTOs.CreateRoomDTO;
-import com.example.common.exceptions.ApiException;
+import com.example.datagateway.exceptions.ApiException;
 import com.example.common.mappers.interfaces.IRoomMapper;
 import com.example.datagateway.repositories.IRoomRepository;
 import com.example.datagateway.services.interfaces.IRoomService;

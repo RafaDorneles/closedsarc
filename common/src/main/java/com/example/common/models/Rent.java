@@ -36,6 +36,8 @@ public class Rent {
     private Rentable rentableItem;
 
     @Column(nullable = false)
-    private LocalDateTime rentDate;
+    private LocalDateTime initialRentDate;
 
+    @Column(nullable = false)
+    private LocalDateTime finalRentDate;
 }

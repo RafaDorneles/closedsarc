@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.common.dtos.RentDTO;
 import com.example.common.dtos.createDTOs.CreateRentDTO;
-import com.example.common.exceptions.ApiException;
+import com.example.datagateway.exceptions.ApiException;
 import com.example.common.mappers.interfaces.IRentMapper;
 import com.example.common.models.Course;
 import com.example.common.models.Rent;
@@ -53,7 +53,7 @@ public class RentService implements IRentService {
         Rentable rentableItem = rentableRepository.findById(rent.getRentableItemId())
                 .orElseThrow(() -> new ApiException("Rentable item not found", HttpStatus.NOT_FOUND));
 
-        Rent newRent = rentMapper.requestToEntity(course, rentableItem);
+        Rent newRent = rentMapper.requestToEntity(course, rentableItem, rent);
         course.addRent(newRent);
         rentableItem.addRent(newRent);
 

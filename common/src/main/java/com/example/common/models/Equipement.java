@@ -5,18 +5,18 @@ import lombok.Setter;
 import lombok.Getter;
 
 @Entity
-@Table(name = "equipaments")
+@Table(name = "equipements")
 @Getter
 @Setter
-public class Equipament extends Rentable {
+public class Equipement extends Rentable {
 
     private String name;
 
-    public Equipament() {
+    public Equipement() {
         super();
     }
 
-    public Equipament(String name) {
+    public Equipement(String name) {
         super();
         this.name = name;
     }

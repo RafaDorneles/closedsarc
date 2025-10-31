@@ -11,15 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.common.dtos.RoomDTO;
 import com.example.common.dtos.createDTOs.CreateRoomDTO;
 import com.example.datagateway.services.interfaces.IRoomService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-
 @RestController
-@RequestMapping("/room")
+@RequestMapping("/rooms")
 public class RoomController {
     
     @Autowired

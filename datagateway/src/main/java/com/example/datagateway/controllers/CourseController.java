@@ -19,7 +19,7 @@ import com.example.common.dtos.createDTOs.CreateCourseDTO;
 import com.example.datagateway.services.interfaces.ICourseService;
 
 @RestController
-@RequestMapping("/course")
+@RequestMapping("/courses")
 public class CourseController {
     
     @Autowired
@@ -56,5 +56,11 @@ public class CourseController {
     public ResponseEntity<CourseDTO> deleteCourse(@PathVariable Long id) {
         CourseDTO deletedCourse = courseService.deleteCourse(id);
         return ResponseEntity.ok(deletedCourse);
+    }
+
+    @PutMapping("/{courseId}/professor/{professorId}")
+    public ResponseEntity<CourseDTO> assignProfessorToCourse(@PathVariable Long courseId, @PathVariable Long professorId) {
+        CourseDTO resultedCourse = courseService.assignProfessorToCourse(professorId, courseId);
+        return ResponseEntity.ok(resultedCourse);
     }
 }

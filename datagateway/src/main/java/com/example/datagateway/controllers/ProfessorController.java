@@ -21,7 +21,7 @@ import com.example.common.dtos.createDTOs.CreateProfessorDTO;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
-@RequestMapping("/professor")
+@RequestMapping("/professors")
 public class ProfessorController {
 
     @Autowired

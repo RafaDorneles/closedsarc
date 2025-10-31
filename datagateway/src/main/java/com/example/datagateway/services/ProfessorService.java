@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.common.dtos.ProfessorDTO;
 import com.example.common.dtos.createDTOs.CreateProfessorDTO;
-import com.example.common.exceptions.ApiException;
+import com.example.datagateway.exceptions.ApiException;
 import com.example.common.mappers.interfaces.IProfessorMapper;
 import com.example.datagateway.repositories.IProfessorRepository;
 import com.example.datagateway.services.interfaces.IProfessorService;

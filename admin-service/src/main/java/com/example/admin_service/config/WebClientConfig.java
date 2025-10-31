@@ -9,8 +9,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfig {
     
-    @Bean("databaseGatewayClient")
-    public WebClient databaseGatewayClient(WebClient.Builder builder) {
+    @Bean("webClient")
+    public WebClient webClient(WebClient.Builder builder) {
         return builder.baseUrl("http://datagateway:8080/data")
                       .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                       .build();
