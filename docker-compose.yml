@@ -1,4 +1,26 @@
 services:
+  consul:
+      image: consul:1.15
+      container_name: consul
+      command: agent -dev -client=0.0.0.0
+      ports:
+        - "8500:8500"
+        - "8600:8600/udp"
+      networks:
+        - spring-net
+
+  apigateway:
+    build:
+      context: .
+      dockerfile: apigateway/Dockerfile
+    container_name: apigateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - consul
+    networks:
+      - spring-net
+
   db:
     image: postgres:16
     container_name: postgres_container
@@ -23,6 +45,7 @@ services:
       - "8081:8080"
     depends_on:
       - datagateway
+      - consul
     networks:
       - spring-net
 
@@ -35,6 +58,7 @@ services:
       - "8082:8080"
     depends_on:
       - datagateway
+      - consul
     networks:
       - spring-net
 
@@ -51,9 +75,10 @@ services:
       - PROFESSOR_SERVICE_URL=http://professor-service:8080
       - ADMIN_SERVICE_URL=http://admin-service:8080
     ports:
-      - "8080:8080"
+      - "8083:8080"
     depends_on:
       - db
+      - consul
     networks:
       - spring-net
 

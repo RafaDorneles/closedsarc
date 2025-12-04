@@ -11,7 +11,7 @@ public class WebClientConfig {
     
     @Bean("webClient")
     public WebClient webClient(WebClient.Builder builder) {
-        return builder.baseUrl("http://datagateway:8080/data")
+        return builder.baseUrl("http://datagateway:8083/data")
                       .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                       .build();
     }
