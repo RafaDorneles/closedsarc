@@ -1,0 +1,36 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    consul:
+      host: consul
+      port: 8500
+      discovery:
+        register: true
+        prefer-ip-address: true
+
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+
+      routes:
+        # ADMIN SERVICE
+        - id: admin-service
+          uri: lb://admin-service
+          predicates:
+            - Path=/admin/**
+          filters:
+            - StripPrefix=1
+
+        # PROFESSOR SERVICE
+        - id: professor-service
+          uri: lb://professor-service
+          predicates:
+            - Path=/professor/**
+          filters:
+            - StripPrefix=1
