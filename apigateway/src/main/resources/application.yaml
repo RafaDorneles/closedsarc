@@ -1,9 +1,17 @@
 server:
-  port: 8080
+  port: 8085
+
+management:
+  datadog:
+    metrics:
+      export:
+        apiKey: ${DATADOG_API_KEY}
+        uri: https://api.datadoghq.com
+        step: 10s
 
 spring:
   application:
-    name: api-gateway
+    name: apigateway
 
   cloud:
     consul:
