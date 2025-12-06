@@ -1,4 +1,43 @@
 services:
+  datadog-agent:
+    image: gcr.io/datadoghq/agent:latest
+    container_name: datadog-agent
+    environment:
+      - DD_API_KEY=${DATADOG_API_KEY}
+      - DD_SITE=datadoghq.com
+      - DD_LOGS_ENABLED=true
+      - DD_APM_ENABLED=true
+      - DD_OTLP_CONFIG_RECEIVER_PROTOCOLS_HTTP_ENABLED=true
+    ports:
+      - "8126:8126"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - spring-net
+
+  apigateway:
+    build:
+      context: .
+      dockerfile: apigateway/Dockerfile
+    container_name: apigateway
+    ports:
+      - "8085:8080"
+    depends_on:
+      - eureka-server
+      - datadog-agent
+    networks:
+      - spring-net
+
+  eureka-server:
+    build:
+      context: .
+      dockerfile: eureka-server/Dockerfile
+    container_name: eureka
+    ports:
+      - "8761:8761"
+    networks:
+      - spring-net
+
   db:
     image: postgres:16
     container_name: postgres_container
@@ -23,6 +62,8 @@ services:
       - "8081:8080"
     depends_on:
       - datagateway
+      - eureka-server
+      - datadog-agent
     networks:
       - spring-net
 
@@ -35,6 +76,8 @@ services:
       - "8082:8080"
     depends_on:
       - datagateway
+      - eureka-server
+      - datadog-agent
     networks:
       - spring-net
 
@@ -53,8 +96,9 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      db:
-        condition: service_started
+      - db
+      - eureka-server
+      - datadog-agent
     networks:
       - spring-net
 

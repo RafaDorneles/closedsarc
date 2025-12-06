@@ -1,0 +1,36 @@
+management:
+  datadog:
+    metrics:
+      export:
+        apiKey: ${DATADOG_API_KEY}
+        uri: https://api.datadoghq.com
+        step: 10s
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka:8761/eureka/
+      register-with-eureka: true
+      fetch-registry: true
+      
+spring:
+  application:
+    name: apigateway
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+
+      routes:
+        # ADMIN SERVICE
+        - id: admin-service
+          uri: lb://admin-service
+          predicates:
+            - Path=/admin/**
+
+        # PROFESSOR SERVICE
+        - id: professor-service
+          uri: lb://professor-service
+          predicates:
+            - Path=/professor/**
