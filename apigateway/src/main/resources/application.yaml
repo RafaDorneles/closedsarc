@@ -1,6 +1,3 @@
-server:
-  port: 8085
-
 management:
   datadog:
     metrics:
@@ -8,19 +5,18 @@ management:
         apiKey: ${DATADOG_API_KEY}
         uri: https://api.datadoghq.com
         step: 10s
-
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka:8761/eureka/
+      register-with-eureka: true
+      fetch-registry: true
+      
 spring:
   application:
     name: apigateway
 
   cloud:
-    consul:
-      host: consul
-      port: 8500
-      discovery:
-        register: true
-        prefer-ip-address: true
-
     gateway:
       discovery:
         locator:
@@ -32,13 +28,9 @@ spring:
           uri: lb://admin-service
           predicates:
             - Path=/admin/**
-          filters:
-            - StripPrefix=1
 
         # PROFESSOR SERVICE
         - id: professor-service
           uri: lb://professor-service
           predicates:
             - Path=/professor/**
-          filters:
-            - StripPrefix=1

@@ -1,25 +1,36 @@
 services:
-  consul:
-      image: consul:1.15
-      container_name: consul
-      command: agent -dev -client=0.0.0.0
-      ports:
-        - "8500:8500"
-        - "8600:8600/udp"
-      networks:
-        - spring-net
+  datadog:
+    image: gcr.io/datadoghq/agent:latest
+    container_name: datadog-agent
+    environment:
+      - DD_API_KEY=${DATADOG_API_KEY}
+      - DD_SITE=datadoghq.com
+      - DD_LOGS_ENABLED=true
+      - DD_CONTAINER_EXCLUDE="name:datadog-agent"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - spring-net
 
   apigateway:
     build:
       context: .
       dockerfile: apigateway/Dockerfile
     container_name: apigateway
-    environment:
-      - MANAGEMENT_DATADOG_METRICS_EXPORT_APIKEY=${DATADOG_API_KEY}
     ports:
       - "8085:8080"
     depends_on:
-      - consul
+      - eureka-server
+    networks:
+      - spring-net
+
+  eureka-server:
+    build:
+      context: .
+      dockerfile: eureka-server/Dockerfile
+    container_name: eureka
+    ports:
+      - "8761:8761"
     networks:
       - spring-net
 
@@ -47,7 +58,7 @@ services:
       - "8081:8080"
     depends_on:
       - datagateway
-      - consul
+      - eureka-server
     networks:
       - spring-net
 
@@ -60,7 +71,7 @@ services:
       - "8082:8080"
     depends_on:
       - datagateway
-      - consul
+      - eureka-server
     networks:
       - spring-net
 
@@ -80,7 +91,7 @@ services:
       - "8080:8080"
     depends_on:
       - db
-      - consul
+      - eureka-server
     networks:
       - spring-net
 

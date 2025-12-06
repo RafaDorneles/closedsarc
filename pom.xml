@@ -21,6 +21,8 @@
         <module>datagateway</module>
         <module>admin-service</module>
         <module>professor-service</module>
+        <module>apigateway</module>
+        <module>eureka-server</module>
     </modules>
 	<build>
         <pluginManagement>
