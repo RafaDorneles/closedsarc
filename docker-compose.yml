@@ -1,12 +1,15 @@
 services:
-  datadog:
+  datadog-agent:
     image: gcr.io/datadoghq/agent:latest
     container_name: datadog-agent
     environment:
       - DD_API_KEY=${DATADOG_API_KEY}
       - DD_SITE=datadoghq.com
       - DD_LOGS_ENABLED=true
-      - DD_CONTAINER_EXCLUDE="name:datadog-agent"
+      - DD_APM_ENABLED=true
+      - DD_OTLP_CONFIG_RECEIVER_PROTOCOLS_HTTP_ENABLED=true
+    ports:
+      - "8126:8126"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
@@ -21,6 +24,7 @@ services:
       - "8085:8080"
     depends_on:
       - eureka-server
+      - datadog-agent
     networks:
       - spring-net
 
@@ -59,6 +63,7 @@ services:
     depends_on:
       - datagateway
       - eureka-server
+      - datadog-agent
     networks:
       - spring-net
 
@@ -72,6 +77,7 @@ services:
     depends_on:
       - datagateway
       - eureka-server
+      - datadog-agent
     networks:
       - spring-net
 
@@ -92,6 +98,7 @@ services:
     depends_on:
       - db
       - eureka-server
+      - datadog-agent
     networks:
       - spring-net
 
